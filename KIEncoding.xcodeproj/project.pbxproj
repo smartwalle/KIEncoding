@@ -20,10 +20,10 @@
 		181E4E8B1CBF5E1500699077 /* NSString+KIDigest.m in Sources */ = {isa = PBXBuildFile; fileRef = 181E4E891CBF5E1500699077 /* NSString+KIDigest.m */; };
 		181E4E911CBF5E4800699077 /* NSData+KIHMAC.m in Sources */ = {isa = PBXBuildFile; fileRef = 181E4E8E1CBF5E4800699077 /* NSData+KIHMAC.m */; };
 		181E4E921CBF5E4800699077 /* NSString+KIHMAC.m in Sources */ = {isa = PBXBuildFile; fileRef = 181E4E901CBF5E4800699077 /* NSString+KIHMAC.m */; };
-		181E4E971CBF5EDA00699077 /* NSData+KIAES.m in Sources */ = {isa = PBXBuildFile; fileRef = 181E4E961CBF5EDA00699077 /* NSData+KIAES.m */; };
-		181E4E9A1CBF606700699077 /* NSString+KIAES.m in Sources */ = {isa = PBXBuildFile; fileRef = 181E4E991CBF606700699077 /* NSString+KIAES.m */; };
 		181E4E9E1CBF64CF00699077 /* NSString+KIEncoding.m in Sources */ = {isa = PBXBuildFile; fileRef = 181E4E9D1CBF64CF00699077 /* NSString+KIEncoding.m */; };
 		BC6398F13EF091F8AD0D9A9E /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 31959742FCBCF5316C7213EF /* libPods.a */; };
+		D5D617931CBFC605000EC32F /* NSData+KIAES.m in Sources */ = {isa = PBXBuildFile; fileRef = D5D6178F1CBFC605000EC32F /* NSData+KIAES.m */; };
+		D5D617941CBFC605000EC32F /* NSString+KIAES.m in Sources */ = {isa = PBXBuildFile; fileRef = D5D617911CBFC605000EC32F /* NSString+KIAES.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -70,15 +70,15 @@
 		181E4E8E1CBF5E4800699077 /* NSData+KIHMAC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+KIHMAC.m"; sourceTree = "<group>"; };
 		181E4E8F1CBF5E4800699077 /* NSString+KIHMAC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+KIHMAC.h"; sourceTree = "<group>"; };
 		181E4E901CBF5E4800699077 /* NSString+KIHMAC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+KIHMAC.m"; sourceTree = "<group>"; };
-		181E4E951CBF5EDA00699077 /* NSData+KIAES.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+KIAES.h"; sourceTree = "<group>"; };
-		181E4E961CBF5EDA00699077 /* NSData+KIAES.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+KIAES.m"; sourceTree = "<group>"; };
-		181E4E981CBF606700699077 /* NSString+KIAES.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+KIAES.h"; sourceTree = "<group>"; };
-		181E4E991CBF606700699077 /* NSString+KIAES.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+KIAES.m"; sourceTree = "<group>"; };
 		181E4E9C1CBF64CF00699077 /* NSString+KIEncoding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+KIEncoding.h"; sourceTree = "<group>"; };
 		181E4E9D1CBF64CF00699077 /* NSString+KIEncoding.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+KIEncoding.m"; sourceTree = "<group>"; };
 		22F3950DE254755440E3A13D /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		31959742FCBCF5316C7213EF /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		41263AF73522B5A400BB9817 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
+		D5D6178E1CBFC605000EC32F /* NSData+KIAES.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+KIAES.h"; sourceTree = "<group>"; };
+		D5D6178F1CBFC605000EC32F /* NSData+KIAES.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+KIAES.m"; sourceTree = "<group>"; };
+		D5D617901CBFC605000EC32F /* NSString+KIAES.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+KIAES.h"; sourceTree = "<group>"; };
+		D5D617911CBFC605000EC32F /* NSString+KIAES.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+KIAES.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -211,10 +211,8 @@
 		181E4E941CBF5EDA00699077 /* KIOpenSSL */ = {
 			isa = PBXGroup;
 			children = (
-				181E4E951CBF5EDA00699077 /* NSData+KIAES.h */,
-				181E4E961CBF5EDA00699077 /* NSData+KIAES.m */,
-				181E4E981CBF606700699077 /* NSString+KIAES.h */,
-				181E4E991CBF606700699077 /* NSString+KIAES.m */,
+				D5D6178D1CBFC605000EC32F /* KIAES */,
+				D5D617921CBFC605000EC32F /* KIRSA */,
 			);
 			path = KIOpenSSL;
 			sourceTree = "<group>";
@@ -234,6 +232,24 @@
 				31959742FCBCF5316C7213EF /* libPods.a */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		D5D6178D1CBFC605000EC32F /* KIAES */ = {
+			isa = PBXGroup;
+			children = (
+				D5D6178E1CBFC605000EC32F /* NSData+KIAES.h */,
+				D5D6178F1CBFC605000EC32F /* NSData+KIAES.m */,
+				D5D617901CBFC605000EC32F /* NSString+KIAES.h */,
+				D5D617911CBFC605000EC32F /* NSString+KIAES.m */,
+			);
+			path = KIAES;
+			sourceTree = "<group>";
+		};
+		D5D617921CBFC605000EC32F /* KIRSA */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = KIRSA;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -417,15 +433,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D5D617941CBFC605000EC32F /* NSString+KIAES.m in Sources */,
+				D5D617931CBFC605000EC32F /* NSData+KIAES.m in Sources */,
 				181E4E561CBF5D9700699077 /* ViewController.m in Sources */,
 				181E4E531CBF5D9700699077 /* AppDelegate.m in Sources */,
 				181E4E9E1CBF64CF00699077 /* NSString+KIEncoding.m in Sources */,
 				181E4E501CBF5D9700699077 /* main.m in Sources */,
 				181E4E8B1CBF5E1500699077 /* NSString+KIDigest.m in Sources */,
 				181E4E921CBF5E4800699077 /* NSString+KIHMAC.m in Sources */,
-				181E4E971CBF5EDA00699077 /* NSData+KIAES.m in Sources */,
 				181E4E841CBF5DE400699077 /* NSData+KIEncoding.m in Sources */,
-				181E4E9A1CBF606700699077 /* NSString+KIAES.m in Sources */,
 				181E4E911CBF5E4800699077 /* NSData+KIHMAC.m in Sources */,
 				181E4E8A1CBF5E1500699077 /* NSData+KIDigest.m in Sources */,
 			);
