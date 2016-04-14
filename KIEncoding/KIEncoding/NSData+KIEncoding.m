@@ -42,7 +42,13 @@ static char encodingTable[64] = {
     return [hex stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
 }
 
+- (NSString *)UTF8String {
+    NSString *s = [[NSString alloc] initWithData:self encoding:NSUTF8StringEncoding];
+    return s;
+}
+
 - (NSString *)base64Encoded {
+#if __MAC_OS_X_VERSION_MIN_REQUIRED < __MAC_10_9 || __IPHONE_OS_VERSION_MIN_REQUIRED < __IPHONE_7_0
     const unsigned char	*bytes = [self bytes];
     NSMutableString *result = [NSMutableString stringWithCapacity:[self length]];
     unsigned long ixtext = 0;
@@ -91,9 +97,13 @@ static char encodingTable[64] = {
     }
     
     return [NSString stringWithString:result];
+#else
+    return [self base64EncodedStringWithOptions:0];
+#endif
 }
 
 - (NSData *)base64Decoded {
+#if __MAC_OS_X_VERSION_MIN_REQUIRED < __MAC_10_9 || __IPHONE_OS_VERSION_MIN_REQUIRED < __IPHONE_7_0
     const unsigned char	*bytes = [self bytes];
     NSMutableData *result = [NSMutableData dataWithCapacity:[self length]];
     
@@ -147,6 +157,10 @@ static char encodingTable[64] = {
         }
     }
     return [NSData dataWithData:result];
+#else 
+    NSData *data = [[NSData alloc] initWithBase64EncodedData:self options:0];
+    return data;
+#endif
 }
 
 @end

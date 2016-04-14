@@ -1,5 +1,5 @@
 //
-//  NSData+KIEncoding.h
+//  NSString+KIEncoding.h
 //  KIEncoding
 //
 //  Created by apple on 16/4/14.
@@ -7,14 +7,13 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "NSData+KIEncoding.h"
 
-@interface NSData (KIEncoding)
+@interface NSString (KIEncoding)
 
-+ (NSData *)dataWithHex:(NSString *)hex;
+- (NSData *)dataUsingUTF8Encoding;
 
-- (NSString *)hexString;
-
-- (NSString *)UTF8String;
+- (NSData *)dataUsingHex;
 
 - (NSString *)base64Encoded;
 

@@ -8,6 +8,7 @@
 
 #import "AppDelegate.h"
 #import "NSString+KIAES.h"
+#import "NSString+KIEncoding.h"
 
 @interface AppDelegate ()
 
@@ -16,6 +17,7 @@
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    
     return YES;
 }
 
