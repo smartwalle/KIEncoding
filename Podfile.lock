@@ -1,0 +1,19 @@
+PODS:
+  - OpenSSL-iOS (1.0.26)
+
+DEPENDENCIES:
+  - OpenSSL-iOS (from `https://github.com/smartwalle/OpenSSL-iOS.git`)
+
+EXTERNAL SOURCES:
+  OpenSSL-iOS:
+    :git: https://github.com/smartwalle/OpenSSL-iOS.git
+
+CHECKOUT OPTIONS:
+  OpenSSL-iOS:
+    :commit: e61bfe909776ae5e34120d2d7ec51a8fc7d1496a
+    :git: https://github.com/smartwalle/OpenSSL-iOS.git
+
+SPEC CHECKSUMS:
+  OpenSSL-iOS: 8164a7f701bb9dfabfbe184d3c451f462dffe2bf
+
+COCOAPODS: 0.39.0
