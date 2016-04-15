@@ -89,6 +89,7 @@
 		187F6A291CC0A6AE00450E22 /* KIRSAKey.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KIRSAKey.h; sourceTree = "<group>"; };
 		187F6A2A1CC0A6AE00450E22 /* KIRSAKey.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KIRSAKey.m; sourceTree = "<group>"; };
 		187F6A2C1CC0AD5000450E22 /* a.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = a.mp3; sourceTree = "<group>"; };
+		187F6A301CC0F24200450E22 /* hello.en */ = {isa = PBXFileReference; lastKnownFileType = file; path = hello.en; sourceTree = "<group>"; };
 		22F3950DE254755440E3A13D /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		31959742FCBCF5316C7213EF /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		41263AF73522B5A400BB9817 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
@@ -158,6 +159,7 @@
 				181E4E511CBF5D9700699077 /* AppDelegate.h */,
 				181E4E521CBF5D9700699077 /* AppDelegate.m */,
 				187F6A2C1CC0AD5000450E22 /* a.mp3 */,
+				187F6A301CC0F24200450E22 /* hello.en */,
 				181E4E541CBF5D9700699077 /* ViewController.h */,
 				181E4E551CBF5D9700699077 /* ViewController.m */,
 				181E4E571CBF5D9700699077 /* Main.storyboard */,

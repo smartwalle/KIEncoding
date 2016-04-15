@@ -12,29 +12,52 @@
 @implementation KIRSAPublicKey
 
 - (instancetype)initWithFile:(NSString *)file {
+//    OpenSSL_add_all_algorithms();
+//    
+//    BIO *bio = BIO_new_file([file UTF8String], "rb");
+//    if(bio == NULL){
+//        return nil;
+//    }
+//    
 //    RSA *rsa = NULL;
 //    
-//    OpenSSL_add_all_algorithms();
-//    BIO *bp = BIO_new(BIO_s_file());;
-//    BIO_read_filename(bp, [file UTF8String]);
-//    if(NULL == bp)
-//    {
-//        printf("open_public_key bio file new error!\n");
-//        return NULL;
+//    if((rsa=PEM_read_RSAPublicKey(bio ,NULL,NULL,NULL))==NULL){
+//        ERR_print_errors_fp(stdout);
+//        return 0;
 //    }
 //    
-//    rsa = PEM_read_RSAPublicKey(bp, NULL, NULL, NULL);
-//    if(rsa == NULL)
-//    {
-//        printf("open_public_key failed to PEM_read_bio_RSAPublicKey!\n");
-//        BIO_free(bp);
-//        RSA_free(rsa);
-//        
-//        return NULL;
+//    BIO_free(bio);
+//    if(rsa == NULL) {
+//        return nil;
 //    }
 //    
-//    printf("open_public_key success to PEM_read_bio_RSAPublicKey!\n");
+//    self = [self initWithRSA:rsa];
+//    RSA_free(rsa);
+//    return self;
     
+    
+    RSA *rsa = NULL;
+    
+    OpenSSL_add_all_algorithms();
+    BIO *bp = BIO_new(BIO_s_file());;
+    BIO_read_filename(bp, [file UTF8String]);
+    if(NULL == bp)
+    {
+        printf("open_public_key bio file new error!\n");
+        return NULL;
+    }
+    
+    rsa = PEM_read_bio_RSAPublicKey(bp, NULL, NULL, NULL);
+    if(rsa == NULL)
+    {
+        printf("open_public_key failed to PEM_read_bio_RSAPublicKey!\n");
+        BIO_free(bp);
+        RSA_free(rsa);
+        
+        return NULL;
+    }
+    
+    printf("open_public_key success to PEM_read_bio_RSAPublicKey!\n");
     return nil;
 }
 
