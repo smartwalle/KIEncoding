@@ -12,6 +12,29 @@
 @implementation KIRSAPublicKey
 
 - (instancetype)initWithFile:(NSString *)file {
+//    RSA *rsa = NULL;
+//    
+//    OpenSSL_add_all_algorithms();
+//    BIO *bp = BIO_new(BIO_s_file());;
+//    BIO_read_filename(bp, [file UTF8String]);
+//    if(NULL == bp)
+//    {
+//        printf("open_public_key bio file new error!\n");
+//        return NULL;
+//    }
+//    
+//    rsa = PEM_read_RSAPublicKey(bp, NULL, NULL, NULL);
+//    if(rsa == NULL)
+//    {
+//        printf("open_public_key failed to PEM_read_bio_RSAPublicKey!\n");
+//        BIO_free(bp);
+//        RSA_free(rsa);
+//        
+//        return NULL;
+//    }
+//    
+//    printf("open_public_key success to PEM_read_bio_RSAPublicKey!\n");
+    
     return nil;
 }
 

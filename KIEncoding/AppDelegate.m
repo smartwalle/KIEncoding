@@ -33,15 +33,38 @@ int generate_key_files(const char *pub_keyfile, const char *pri_keyfile,
 {
     RSA *rsa = NULL;
 //    RAND_seed(rnd_seed, sizeof(rnd_seed));
-    rsa = RSA_generate_key(1024, RSA_F4, NULL, NULL);
+    rsa = RSA_generate_key(1024, RSA_3, NULL, NULL);
     if(rsa == NULL)
     {
         printf("RSA_generate_key error!\n");
         return -1;
     }
     
-    // 开始生成公钥文件
     BIO *bp = BIO_new(BIO_s_file());
+    
+    // 公钥文件生成成功，释放资源
+    printf("Create public key ok!\n");
+    BIO_free_all(bp);
+    
+    // 生成私钥文件
+    bp = BIO_new_file(pri_keyfile, "w+");
+    if(NULL == bp)
+    {
+        printf("generate_key bio file new error2!\n");
+        return -1;
+    }
+    
+    if(PEM_write_bio_RSAPrivateKey(bp, rsa,
+                                   EVP_des_ede3_ofb(), (unsigned char *)"123456",
+                                   6, NULL, NULL) != 1)
+    {
+        printf("PEM_write_bio_RSAPublicKey error!\n");
+        return -1;
+    }
+    
+    
+    // 开始生成公钥文件
+
     if(NULL == bp)
     {
         printf("generate_key bio file new error!\n");
@@ -60,26 +83,6 @@ int generate_key_files(const char *pub_keyfile, const char *pri_keyfile,
         return -1;
     }
     
-    // 公钥文件生成成功，释放资源
-    printf("Create public key ok!\n");
-    BIO_free_all(bp);
-    
-    // 生成私钥文件
-    bp = BIO_new_file(pri_keyfile, "w+");
-    if(NULL == bp)
-    {
-        printf("generate_key bio file new error2!\n");
-        return -1;
-    }
-    
-    if(PEM_write_bio_RSAPrivateKey(bp, rsa,
-                                   EVP_des_ede3_ofb(), (unsigned char *)passwd,
-                                   passwd_len, NULL, NULL) != 1)
-    {
-        printf("PEM_write_bio_RSAPublicKey error!\n");
-        return -1;
-    }
-    
     // 释放资源
     printf("Create private key ok!\n");
     BIO_free_all(bp);
@@ -91,6 +94,7 @@ int generate_key_files(const char *pub_keyfile, const char *pri_keyfile,
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     NSString *pubPath = KIPathBaseDocument(@"test_pub.key");
     NSString *priPath = KIPathBaseDocument(@"test.key");
+    NSLog(@"%@", pubPath);
     
 //    generate_key_files([pubPath UTF8String], [priPath UTF8String], "123456", 6);
     
@@ -106,11 +110,13 @@ int generate_key_files(const char *pub_keyfile, const char *pri_keyfile,
 //    self.pubKey = rsa.publicKey;
     
     self.pubKey = [[KIRSAPublicKey alloc] initWithFile:pubPath];
-    self.priKey = [[KIRSAPrivateKey alloc] initWithFile:priPath];
+    self.priKey = [[KIRSAPrivateKey alloc] initWithFile:priPath password:@"123456"];
     
     
     __weak AppDelegate *weakSelf = self;
     [self.priKey encrypt:pt finishedBlock:^(NSData *cipherData, NSError *error) {
+        NSLog(@"%@", [cipherData hexString]);
+        
         [weakSelf.pubKey decrypt:cipherData finishedBlock:^(NSData *plainData, NSError *error) {
             NSLog(@"解密出来啦：%@", [plainData UTF8String]);
             NSLog(@"%@", KIPathBaseDocument(@"aaa.mp3"));
