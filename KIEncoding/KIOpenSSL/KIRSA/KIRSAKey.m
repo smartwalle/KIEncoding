@@ -67,6 +67,9 @@
 }
 
 - (NSData *)encrypt:(NSData *)plainData error:(NSError **)error {
+    if (plainData == nil) {
+        return nil;
+    }
     int blockSize = self.RSASize - 11;
     __block NSMutableData *cipherData = [[NSMutableData alloc] init];
     [self packageData:plainData packageSize:blockSize block:^(NSUInteger idx, NSData *packageData) {
@@ -82,6 +85,9 @@
 }
 
 - (NSData *)decrypt:(NSData *)cipherData error:(NSError **)error {
+    if (cipherData == nil) {
+        return nil;
+    }
     __block NSMutableData *plainData = [[NSMutableData alloc] init];
     [self packageData:cipherData packageSize:self.RSASize block:^(NSUInteger idx, NSData *packageData) {
         NSData *pd = [self _decrypt:packageData error:error];
