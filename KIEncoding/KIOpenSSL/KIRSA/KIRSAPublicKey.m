@@ -43,12 +43,12 @@
     rsa = PEM_read_bio_RSA_PUBKEY(bio, NULL, NULL, NULL);
     if(rsa == NULL) {
         if (rsa == NULL) {
-            BIO_free(bio);
+            BIO_free_all(bio);
             bio = BIO_new_file([file UTF8String], "rb");
             rsa = PEM_read_bio_RSAPublicKey(bio, NULL, NULL, NULL);
         }
     }
-    BIO_free(bio);
+    BIO_free_all(bio);
     if (rsa == NULL) {
         return nil;
     }
@@ -88,6 +88,24 @@
     }
     [plainData setLength:pLen];
     return plainData;
+}
+
+- (BOOL)writeKeyToFile:(NSString *)file {
+    if (file == nil) {
+        return NO;
+    }
+    BIO *bio = BIO_new_file([file UTF8String], "w+");
+    if (bio == NULL) {
+        return NO;
+    }
+    
+    int s = PEM_write_bio_RSAPublicKey(bio, _rsa);
+    BIO_free_all(bio);
+    if (s != 1) {
+        return NO;
+    }
+    
+    return YES;
 }
 
 @end

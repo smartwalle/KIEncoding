@@ -14,4 +14,6 @@
 - (instancetype)initWithFile:(NSString *)file;
 - (instancetype)initWithData:(NSData *)data;
 
+- (BOOL)writeKeyToFile:(NSString *)file;
+
 @end

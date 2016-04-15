@@ -21,7 +21,7 @@
     
     RSA *rsa = NULL;
     PEM_read_bio_RSAPrivateKey(bio, &rsa, NULL, (void *)[password UTF8String]);
-    BIO_free(bio);
+    BIO_free_all(bio);
     if(rsa == NULL) {
         return nil;
     }
@@ -61,6 +61,32 @@
     }
     [plainData setLength:pLen];
     return plainData;
+}
+
+- (BOOL)writeKeyToFile:(NSString *)file {
+    return [self writeKeyToFile:file cipher:NULL password:nil];
+}
+
+- (BOOL)writeKeyToFile:(NSString *)file password:(NSString *)password {
+    return [self writeKeyToFile:file cipher:EVP_des_ede3_ofb() password:password];
+}
+
+- (BOOL)writeKeyToFile:(NSString *)file cipher:(const EVP_CIPHER *)enc password:(NSString *)password {
+    if (file == nil) {
+        return NO;
+    }
+    BIO *bio = BIO_new_file([file UTF8String], "w+");
+    if (bio == NULL) {
+        return NO;
+    }
+    
+    int s = PEM_write_bio_RSAPrivateKey(bio, _rsa, enc, (unsigned char *)[password UTF8String], (int)[password length], NULL, NULL);
+    BIO_free_all(bio);
+    if (s != 1) {
+        return NO;
+    }
+    
+    return YES;
 }
 
 @end

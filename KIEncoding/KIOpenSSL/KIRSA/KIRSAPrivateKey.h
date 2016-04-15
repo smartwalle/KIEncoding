@@ -14,4 +14,8 @@
 - (instancetype)initWithFile:(NSString *)file password:(NSString *)password;
 - (instancetype)initWithData:(NSData *)data;
 
+- (BOOL)writeKeyToFile:(NSString *)file;
+- (BOOL)writeKeyToFile:(NSString *)file password:(NSString *)password;
+- (BOOL)writeKeyToFile:(NSString *)file cipher:(const EVP_CIPHER *)enc password:(NSString *)password;
+
 @end

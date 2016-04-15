@@ -140,7 +140,6 @@
 }
                        
 #pragma mark - Getters & Setters
-
 - (RSA *)rsa {
     return _rsa;
 }

@@ -92,8 +92,8 @@ int generate_key_files(const char *pub_keyfile, const char *pri_keyfile,
 }
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    NSString *pubPath = KIDirectoryBaseDocument(@"test_pub.key");
-    NSString *priPath = KIDirectoryBaseDocument(@"test.key");
+    NSString *pubPath = KIDirectoryBaseDocument(@"test_pub_3.key");
+    NSString *priPath = KIDirectoryBaseDocument(@"test_pri_4.key");
     NSLog(@"%@", pubPath);
     
 //    generate_key_files([pubPath UTF8String], [priPath UTF8String], "123456", 6);
@@ -110,7 +110,11 @@ int generate_key_files(const char *pub_keyfile, const char *pri_keyfile,
 //    self.pubKey = rsa.publicKey;
     
     self.pubKey = [[KIRSAPublicKey alloc] initWithFile:pubPath];
-    self.priKey = [[KIRSAPrivateKey alloc] initWithFile:priPath password:@"123456"];
+    self.priKey = [[KIRSAPrivateKey alloc] initWithFile:priPath password:@"12345678"];
+    
+//    [self.pubKey writeKeyToFile:KIDirectoryBaseDocument(@"test_pub_4.key")];
+//    [self.priKey writeKeyToFile:KIDirectoryBaseDocument(@"test_pri_4.key") password:@"12345678"];
+
     
     __weak AppDelegate *weakSelf = self;
     [self.pubKey encrypt:pt finishedBlock:^(NSData *cipherData, NSError *error) {
@@ -123,6 +127,8 @@ int generate_key_files(const char *pub_keyfile, const char *pri_keyfile,
             
         }];
     }];
+    
+    
     return YES;
 }
 
