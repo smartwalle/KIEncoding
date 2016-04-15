@@ -15,8 +15,14 @@
 
 - (NSData *)dataUsingHex;
 
+
 - (NSString *)base64Encoded;
 
 - (NSData *)base64Decoded;
+
+
+- (NSString *)URLEncodedString;
+
+- (NSString *)URLDecodedString;
 
 @end

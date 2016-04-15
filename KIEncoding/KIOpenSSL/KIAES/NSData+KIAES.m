@@ -34,13 +34,13 @@
         return nil;
     }
     
-    if (!EVP_EncryptUpdate(&ctx, resultBytes, (int *) &blockLength, self.bytes, (int)self.length)) {
+    if (!EVP_EncryptUpdate(&ctx, resultBytes, (int *)&blockLength, self.bytes, (int)self.length)) {
         free(resultBytes);
         return nil;
     }
     length += blockLength;
     
-    if (!EVP_EncryptFinal(&ctx, resultBytes + length, (int *) &blockLength)) {
+    if (!EVP_EncryptFinal(&ctx, resultBytes + length, (int *)&blockLength)) {
         free(resultBytes);
         return nil;
     }
@@ -71,13 +71,13 @@
         return nil;
     }
     
-    if (!EVP_DecryptUpdate(&ctx, resultBytes, (int *) &blockLength, self.bytes, (int)self.length)) {
+    if (!EVP_DecryptUpdate(&ctx, resultBytes, (int *)&blockLength, self.bytes, (int)self.length)) {
         free(resultBytes);
         return nil;
     }
     length += blockLength;
     
-    if (!EVP_DecryptFinal(&ctx, resultBytes + length, (int *) &blockLength)) {
+    if (!EVP_DecryptFinal(&ctx, resultBytes + length, (int *)&blockLength)) {
         free(resultBytes);
         return nil;
     }

@@ -1,0 +1,30 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "89211C46ED2A8831CDF09AEA8241DC67FA64E010",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "13890B229EF7EF31AA0D88922AC20270640BD802" : 0,
+    "89211C46ED2A8831CDF09AEA8241DC67FA64E010" : 0
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "064E57A1-89FE-4703-9DD1-E303A647003E",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "13890B229EF7EF31AA0D88922AC20270640BD802" : "KIAdditions\/",
+    "89211C46ED2A8831CDF09AEA8241DC67FA64E010" : "KIEncoding\/"
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "KIEncoding",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "KIEncoding.xcworkspace",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "github.com:smartwalle\/KIAdditions.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "13890B229EF7EF31AA0D88922AC20270640BD802"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "github.com:smartwalle\/KIEncoding.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "89211C46ED2A8831CDF09AEA8241DC67FA64E010"
+    }
+  ]
+}
