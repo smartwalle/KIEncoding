@@ -21,7 +21,6 @@
 		181E4E911CBF5E4800699077 /* NSData+KIHMAC.m in Sources */ = {isa = PBXBuildFile; fileRef = 181E4E8E1CBF5E4800699077 /* NSData+KIHMAC.m */; };
 		181E4E921CBF5E4800699077 /* NSString+KIHMAC.m in Sources */ = {isa = PBXBuildFile; fileRef = 181E4E901CBF5E4800699077 /* NSString+KIHMAC.m */; };
 		181E4E9E1CBF64CF00699077 /* NSString+KIEncoding.m in Sources */ = {isa = PBXBuildFile; fileRef = 181E4E9D1CBF64CF00699077 /* NSString+KIEncoding.m */; };
-		187F6A1F1CC084AB00450E22 /* NSBundle+KIAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 187F6A1E1CC084AB00450E22 /* NSBundle+KIAdditions.m */; };
 		187F6A221CC0A58200450E22 /* KIRSAPublicKey.m in Sources */ = {isa = PBXBuildFile; fileRef = 187F6A211CC0A58200450E22 /* KIRSAPublicKey.m */; };
 		187F6A251CC0A58C00450E22 /* KIRSAPrivateKey.m in Sources */ = {isa = PBXBuildFile; fileRef = 187F6A241CC0A58C00450E22 /* KIRSAPrivateKey.m */; };
 		187F6A281CC0A59200450E22 /* KIRSA.m in Sources */ = {isa = PBXBuildFile; fileRef = 187F6A271CC0A59200450E22 /* KIRSA.m */; };
@@ -30,6 +29,7 @@
 		BC6398F13EF091F8AD0D9A9E /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 31959742FCBCF5316C7213EF /* libPods.a */; };
 		D5D617931CBFC605000EC32F /* NSData+KIAES.m in Sources */ = {isa = PBXBuildFile; fileRef = D5D6178F1CBFC605000EC32F /* NSData+KIAES.m */; };
 		D5D617941CBFC605000EC32F /* NSString+KIAES.m in Sources */ = {isa = PBXBuildFile; fileRef = D5D617911CBFC605000EC32F /* NSString+KIAES.m */; };
+		D5E4B0381CC107D500DD1E36 /* NSBundle+KIAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = D5E4B0371CC107D500DD1E36 /* NSBundle+KIAdditions.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -78,8 +78,6 @@
 		181E4E901CBF5E4800699077 /* NSString+KIHMAC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+KIHMAC.m"; sourceTree = "<group>"; };
 		181E4E9C1CBF64CF00699077 /* NSString+KIEncoding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+KIEncoding.h"; sourceTree = "<group>"; };
 		181E4E9D1CBF64CF00699077 /* NSString+KIEncoding.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+KIEncoding.m"; sourceTree = "<group>"; };
-		187F6A1D1CC084AB00450E22 /* NSBundle+KIAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSBundle+KIAdditions.h"; path = "../../KIAdditions/KIAdditions/KIAdditions/NSBundle/NSBundle+KIAdditions.h"; sourceTree = "<group>"; };
-		187F6A1E1CC084AB00450E22 /* NSBundle+KIAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSBundle+KIAdditions.m"; path = "../../KIAdditions/KIAdditions/KIAdditions/NSBundle/NSBundle+KIAdditions.m"; sourceTree = "<group>"; };
 		187F6A201CC0A58200450E22 /* KIRSAPublicKey.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KIRSAPublicKey.h; sourceTree = "<group>"; };
 		187F6A211CC0A58200450E22 /* KIRSAPublicKey.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KIRSAPublicKey.m; sourceTree = "<group>"; };
 		187F6A231CC0A58C00450E22 /* KIRSAPrivateKey.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KIRSAPrivateKey.h; sourceTree = "<group>"; };
@@ -97,6 +95,8 @@
 		D5D6178F1CBFC605000EC32F /* NSData+KIAES.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+KIAES.m"; sourceTree = "<group>"; };
 		D5D617901CBFC605000EC32F /* NSString+KIAES.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+KIAES.h"; sourceTree = "<group>"; };
 		D5D617911CBFC605000EC32F /* NSString+KIAES.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+KIAES.m"; sourceTree = "<group>"; };
+		D5E4B0361CC107D500DD1E36 /* NSBundle+KIAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSBundle+KIAdditions.h"; path = "../../VapingTour/Pods/KIAdditions/KIAdditions/KIAdditions/NSBundle/NSBundle+KIAdditions.h"; sourceTree = "<group>"; };
+		D5E4B0371CC107D500DD1E36 /* NSBundle+KIAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSBundle+KIAdditions.m"; path = "../../VapingTour/Pods/KIAdditions/KIAdditions/KIAdditions/NSBundle/NSBundle+KIAdditions.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -150,8 +150,8 @@
 		181E4E4D1CBF5D9700699077 /* KIEncoding */ = {
 			isa = PBXGroup;
 			children = (
-				187F6A1D1CC084AB00450E22 /* NSBundle+KIAdditions.h */,
-				187F6A1E1CC084AB00450E22 /* NSBundle+KIAdditions.m */,
+				D5E4B0361CC107D500DD1E36 /* NSBundle+KIAdditions.h */,
+				D5E4B0371CC107D500DD1E36 /* NSBundle+KIAdditions.m */,
 				181E4E811CBF5DE400699077 /* KIEncoding */,
 				181E4E851CBF5E1500699077 /* KIDigest */,
 				181E4E8C1CBF5E4800699077 /* KIHMAC */,
@@ -464,6 +464,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D5E4B0381CC107D500DD1E36 /* NSBundle+KIAdditions.m in Sources */,
 				D5D617941CBFC605000EC32F /* NSString+KIAES.m in Sources */,
 				D5D617931CBFC605000EC32F /* NSData+KIAES.m in Sources */,
 				181E4E561CBF5D9700699077 /* ViewController.m in Sources */,
@@ -478,7 +479,6 @@
 				181E4E841CBF5DE400699077 /* NSData+KIEncoding.m in Sources */,
 				181E4E911CBF5E4800699077 /* NSData+KIHMAC.m in Sources */,
 				187F6A281CC0A59200450E22 /* KIRSA.m in Sources */,
-				187F6A1F1CC084AB00450E22 /* NSBundle+KIAdditions.m in Sources */,
 				181E4E8A1CBF5E1500699077 /* NSData+KIDigest.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

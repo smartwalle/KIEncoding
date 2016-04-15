@@ -92,8 +92,8 @@ int generate_key_files(const char *pub_keyfile, const char *pri_keyfile,
 }
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    NSString *pubPath = KIPathBaseDocument(@"test_pub.key");
-    NSString *priPath = KIPathBaseDocument(@"test.key");
+    NSString *pubPath = KIDirectoryBaseDocument(@"test_pub.key");
+    NSString *priPath = KIDirectoryBaseDocument(@"test.key");
     NSLog(@"%@", pubPath);
     
 //    generate_key_files([pubPath UTF8String], [priPath UTF8String], "123456", 6);
@@ -110,26 +110,19 @@ int generate_key_files(const char *pub_keyfile, const char *pri_keyfile,
 //    self.pubKey = rsa.publicKey;
     
     self.pubKey = [[KIRSAPublicKey alloc] initWithFile:pubPath];
-    self.priKey = [[KIRSAPrivateKey alloc] initWithFile:priPath password:nil];
-
+    self.priKey = [[KIRSAPrivateKey alloc] initWithFile:priPath password:@"123456"];
     
-    NSData *d = [@"593a34088bd90d1da8084d4abd4cb8f285760dab00ee94e64589133dcafeeaf4d856b0dfdcb88f176c5420e45b9ad89c10d3d1532e5ee675f6b22a4774dc06be" dataUsingHex];
-    
-    [self.priKey decrypt:d finishedBlock:^(NSData *plainData, NSError *error) {
-        NSLog(@"%@", [plainData UTF8String]);
-    }];
-    
-//    __weak AppDelegate *weakSelf = self;
-//    [self.priKey encrypt:pt finishedBlock:^(NSData *cipherData, NSError *error) {
-//        NSLog(@"%@", [cipherData hexString]);
-//        
-//        [weakSelf.pubKey decrypt:cipherData finishedBlock:^(NSData *plainData, NSError *error) {
-//            NSLog(@"解密出来啦：%@", [plainData UTF8String]);
-//            NSLog(@"%@", KIPathBaseDocument(@"aaa.mp3"));
+    __weak AppDelegate *weakSelf = self;
+    [self.pubKey encrypt:pt finishedBlock:^(NSData *cipherData, NSError *error) {
+        NSLog(@"%@", [cipherData hexString]);
+        
+        [weakSelf.priKey decrypt:cipherData finishedBlock:^(NSData *plainData, NSError *error) {
+            NSLog(@"解密出来啦：%@", [plainData UTF8String]);
+            NSLog(@"%@", KIDirectoryBaseDocument(@"aaa.mp3"));
 //            [plainData writeToFile:KIPathBaseDocument(@"aaa.mp3") atomically:YES];
-//            
-//        }];
-//    }];
+            
+        }];
+    }];
     return YES;
 }
 

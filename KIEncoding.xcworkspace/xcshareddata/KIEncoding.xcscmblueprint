@@ -5,11 +5,13 @@
   },
   "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
     "13890B229EF7EF31AA0D88922AC20270640BD802" : 0,
+    "F9F203C792AD199C8013187F4DFADF9563B39E15" : 0,
     "89211C46ED2A8831CDF09AEA8241DC67FA64E010" : 0
   },
   "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "064E57A1-89FE-4703-9DD1-E303A647003E",
   "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
     "13890B229EF7EF31AA0D88922AC20270640BD802" : "KIAdditions\/",
+    "F9F203C792AD199C8013187F4DFADF9563B39E15" : "VapingTour\/",
     "89211C46ED2A8831CDF09AEA8241DC67FA64E010" : "KIEncoding\/"
   },
   "DVTSourceControlWorkspaceBlueprintNameKey" : "KIEncoding",
@@ -25,6 +27,11 @@
       "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "github.com:smartwalle\/KIEncoding.git",
       "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
       "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "89211C46ED2A8831CDF09AEA8241DC67FA64E010"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "bitbucket.org:smartwalle\/vaping_tour_ios.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "F9F203C792AD199C8013187F4DFADF9563B39E15"
     }
   ]
 }

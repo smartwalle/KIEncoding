@@ -12,53 +12,50 @@
 @implementation KIRSAPublicKey
 
 - (instancetype)initWithFile:(NSString *)file {
-//    OpenSSL_add_all_algorithms();
-//    
-//    BIO *bio = BIO_new_file([file UTF8String], "rb");
-//    if(bio == NULL){
-//        return nil;
-//    }
-//    
-//    RSA *rsa = NULL;
-//    
-//    if((rsa=PEM_read_RSAPublicKey(bio ,NULL,NULL,NULL))==NULL){
-//        ERR_print_errors_fp(stdout);
-//        return 0;
-//    }
-//    
-//    BIO_free(bio);
-//    if(rsa == NULL) {
-//        return nil;
-//    }
-//    
-//    self = [self initWithRSA:rsa];
-//    RSA_free(rsa);
-//    return self;
+    OpenSSL_add_all_algorithms();
+    BIO *bio = BIO_new_file([file UTF8String], "rb");
+    if (bio == NULL) {
+        return nil;
+    }
     
+    /*
+     特别注释：
+     
+     对于同一份密钥，使用 openssl 命令导出的公钥和使用 openssl 代码生成的公钥在格式及值上都不一样，所以这里读取两次。
+     第一次是针对 openssl 命令导出的公钥，该公钥采用 PEM_read_bio_RSA_PUBKEY 读取；
+     第二次是针对 openssl 代码导出的公钥，该公钥采用 PEM_read_bio_RSAPublicKey 读取。
+     
+     命令生成的公钥:
+     -----BEGIN PUBLIC KEY-----
+     xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+     -----END PUBLIC KEY-----
+
+     
+     代码生成的密钥:
+     -----BEGIN RSA PUBLIC KEY-----
+     xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+     -----END RSA PUBLIC KEY-----
+     
+     最简单的区分办法就是判断 BGEIN 和 END 后面有没有 RSA。
+     */
     
     RSA *rsa = NULL;
-    
-    OpenSSL_add_all_algorithms();
-    BIO *bp = BIO_new(BIO_s_file());;
-    BIO_read_filename(bp, [file UTF8String]);
-    if(NULL == bp)
-    {
-        printf("open_public_key bio file new error!\n");
-        return NULL;
+    rsa = PEM_read_bio_RSA_PUBKEY(bio, NULL, NULL, NULL);
+    if(rsa == NULL) {
+        if (rsa == NULL) {
+            BIO_free(bio);
+            bio = BIO_new_file([file UTF8String], "rb");
+            rsa = PEM_read_bio_RSAPublicKey(bio, NULL, NULL, NULL);
+        }
+    }
+    BIO_free(bio);
+    if (rsa == NULL) {
+        return nil;
     }
     
-    rsa = PEM_read_bio_RSAPublicKey(bp, NULL, NULL, NULL);
-    if(rsa == NULL)
-    {
-        printf("open_public_key failed to PEM_read_bio_RSAPublicKey!\n");
-        BIO_free(bp);
-        RSA_free(rsa);
-        
-        return NULL;
-    }
-    
-    printf("open_public_key success to PEM_read_bio_RSAPublicKey!\n");
-    return nil;
+    self = [self initWithRSA:rsa];
+    RSA_free(rsa);
+    return self;
 }
 
 - (instancetype)initWithData:(NSData *)data {
