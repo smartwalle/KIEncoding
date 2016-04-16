@@ -36,7 +36,27 @@
 }
 
 - (instancetype)initWithData:(NSData *)data {
-    return nil;
+    return [self initWithData:data password:nil];
+}
+
+- (instancetype)initWithData:(NSData *)data password:(NSString *)password {
+    OpenSSL_add_all_algorithms();
+    
+    BIO *bio = BIO_new_mem_buf(data.bytes, -1);
+    if(bio == NULL){
+        return nil;
+    }
+    
+    RSA *rsa = NULL;
+    PEM_read_bio_RSAPrivateKey(bio, &rsa, NULL, (void *)[password UTF8String]);
+    BIO_free_all(bio);
+    if(rsa == NULL) {
+        return nil;
+    }
+    
+    self = [self initWithRSA:rsa];
+    RSA_free(rsa);
+    return self;
 }
 
 - (NSData *)_encrypt:(NSData *)plainData error:(NSError **)error {

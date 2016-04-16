@@ -13,7 +13,9 @@
 
 - (instancetype)initWithFile:(NSString *)file;
 - (instancetype)initWithFile:(NSString *)file password:(NSString *)password;
+
 - (instancetype)initWithData:(NSData *)data;
+- (instancetype)initWithData:(NSData *)data password:(NSString *)password;
 
 - (BOOL)writeKeyToFile:(NSString *)file;
 - (BOOL)writeKeyToFile:(NSString *)file password:(NSString *)password;

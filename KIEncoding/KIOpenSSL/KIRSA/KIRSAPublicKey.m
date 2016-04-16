@@ -23,13 +23,11 @@
      PEM_read_bio_RSAPublicKey =>  PEM_write_bio_RSAPublicKey
      */
     RSA *rsa = NULL;
-    rsa = PEM_read_bio_RSA_PUBKEY(bio, NULL, NULL, NULL);
+    PEM_read_bio_RSA_PUBKEY(bio, &rsa, NULL, NULL);
     if(rsa == NULL) {
-        if (rsa == NULL) {
-            BIO_free_all(bio);
-            bio = BIO_new_file([file UTF8String], "rb");
-            rsa = PEM_read_bio_RSAPublicKey(bio, NULL, NULL, NULL);
-        }
+        BIO_free_all(bio);
+        bio = BIO_new_file([file UTF8String], "rb");
+        rsa = PEM_read_bio_RSAPublicKey(bio, &rsa, NULL, NULL);
     }
     BIO_free_all(bio);
     if (rsa == NULL) {
@@ -42,7 +40,27 @@
 }
 
 - (instancetype)initWithData:(NSData *)data {
-    return nil;
+    OpenSSL_add_all_algorithms();
+    BIO *bio = BIO_new_mem_buf(data.bytes, -1);
+    if (bio == NULL) {
+        return nil;
+    }
+    
+    RSA *rsa = NULL;
+    PEM_read_bio_RSA_PUBKEY(bio, &rsa, 0, NULL);
+    if (rsa == NULL) {
+        BIO_free_all(bio);
+        bio = BIO_new_mem_buf(data.bytes, -1);
+        PEM_read_bio_RSAPublicKey(bio, &rsa, 0, NULL);
+    }
+    BIO_free_all(bio);
+    if (rsa == NULL) {
+        return nil;
+    }
+    
+    self = [self initWithRSA:rsa];
+    RSA_free(rsa);
+    return self;
 }
 
 - (NSData *)_encrypt:(NSData *)plainData error:(NSError **)error {

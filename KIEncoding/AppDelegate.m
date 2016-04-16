@@ -44,8 +44,11 @@
 //    [self.priKey writeKeyToFile:priPath];
 //    [self.pubKey writeKeyToFile:pubPath];
     
-    self.pubKey = [[KIRSAPublicKey alloc] initWithFile:pubPath];
-    self.priKey = [[KIRSAPrivateKey alloc] initWithFile:priPath];
+//    self.pubKey = [[KIRSAPublicKey alloc] initWithFile:pubPath];
+//    self.priKey = [[KIRSAPrivateKey alloc] initWithFile:priPath];
+    
+    self.pubKey = [[KIRSAPublicKey alloc] initWithData:[NSData dataWithContentsOfFile:pubPath]];
+    self.priKey = [[KIRSAPrivateKey alloc] initWithData:[NSData dataWithContentsOfFile:priPath] password:nil];
     
 
     __weak AppDelegate *weakSelf = self;
