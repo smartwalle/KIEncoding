@@ -11,11 +11,11 @@
 
 @interface KIRSAPrivateKey : KIRSAKey
 
-- (instancetype)initWithFile:(NSString *)file;
-- (instancetype)initWithFile:(NSString *)file password:(NSString *)password;
++ (KIRSAPrivateKey *)keyWithFile:(NSString *)file;
++ (KIRSAPrivateKey *)keyWithFile:(NSString *)file password:(NSString *)password;
 
-- (instancetype)initWithData:(NSData *)data;
-- (instancetype)initWithData:(NSData *)data password:(NSString *)password;
++ (KIRSAPrivateKey *)keyWithData:(NSData *)data;
++ (KIRSAPrivateKey *)keyWithData:(NSData *)data password:(NSString *)password;
 
 - (BOOL)writeKeyToFile:(NSString *)file;
 - (BOOL)writeKeyToFile:(NSString *)file password:(NSString *)password;

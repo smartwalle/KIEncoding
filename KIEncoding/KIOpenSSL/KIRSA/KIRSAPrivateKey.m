@@ -11,11 +11,11 @@
 
 @implementation KIRSAPrivateKey
 
-- (instancetype)initWithFile:(NSString *)file {
-    return [self initWithFile:file password:nil];
++ (KIRSAPrivateKey *)keyWithFile:(NSString *)file {
+    return [KIRSAPrivateKey keyWithFile:file password:nil];
 }
 
-- (instancetype)initWithFile:(NSString *)file password:(NSString *)password {
++ (KIRSAPrivateKey *)keyWithFile:(NSString *)file password:(NSString *)password {
     OpenSSL_add_all_algorithms();
     
     BIO *bio = BIO_new_file([file UTF8String], "rb");
@@ -30,16 +30,16 @@
         return nil;
     }
     
-    self = [self initWithRSA:rsa];
+    KIRSAPrivateKey *key = [[KIRSAPrivateKey alloc] initWithRSA:rsa];
     RSA_free(rsa);
-    return self;
+    return key;
 }
 
-- (instancetype)initWithData:(NSData *)data {
-    return [self initWithData:data password:nil];
++ (KIRSAPrivateKey *)keyWithData:(NSData *)data {
+    return [KIRSAPrivateKey keyWithData:data password:nil];
 }
 
-- (instancetype)initWithData:(NSData *)data password:(NSString *)password {
++ (KIRSAPrivateKey *)keyWithData:(NSData *)data password:(NSString *)password {
     OpenSSL_add_all_algorithms();
     
     BIO *bio = BIO_new_mem_buf(data.bytes, -1);
@@ -54,9 +54,9 @@
         return nil;
     }
     
-    self = [self initWithRSA:rsa];
+    KIRSAPrivateKey *key = [[KIRSAPrivateKey alloc] initWithRSA:rsa];
     RSA_free(rsa);
-    return self;
+    return key;
 }
 
 - (NSData *)_encrypt:(NSData *)plainData error:(NSError **)error {

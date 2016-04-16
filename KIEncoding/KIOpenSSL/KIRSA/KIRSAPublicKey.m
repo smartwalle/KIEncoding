@@ -11,7 +11,7 @@
 
 @implementation KIRSAPublicKey
 
-- (instancetype)initWithFile:(NSString *)file {
++ (KIRSAPublicKey *)keyWithFile:(NSString *)file {
     OpenSSL_add_all_algorithms();
     BIO *bio = BIO_new_file([file UTF8String], "rb");
     if (bio == NULL) {
@@ -34,12 +34,12 @@
         return nil;
     }
     
-    self = [self initWithRSA:rsa];
+    KIRSAPublicKey *key = [[KIRSAPublicKey alloc] initWithRSA:rsa];
     RSA_free(rsa);
-    return self;
+    return key;
 }
 
-- (instancetype)initWithData:(NSData *)data {
++ (KIRSAPublicKey *)keyWithData:(NSData *)data {
     OpenSSL_add_all_algorithms();
     BIO *bio = BIO_new_mem_buf(data.bytes, -1);
     if (bio == NULL) {
@@ -58,9 +58,9 @@
         return nil;
     }
     
-    self = [self initWithRSA:rsa];
+    KIRSAPublicKey *key = [[KIRSAPublicKey alloc] initWithRSA:rsa];
     RSA_free(rsa);
-    return self;
+    return key;
 }
 
 - (NSData *)_encrypt:(NSData *)plainData error:(NSError **)error {

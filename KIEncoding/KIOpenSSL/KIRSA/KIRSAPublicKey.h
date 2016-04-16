@@ -11,8 +11,8 @@
 
 @interface KIRSAPublicKey : KIRSAKey
 
-- (instancetype)initWithFile:(NSString *)file;
-- (instancetype)initWithData:(NSData *)data;
++ (KIRSAPublicKey *)keyWithFile:(NSString *)file;
++ (KIRSAPublicKey *)keyWithData:(NSData *)data;
 
 - (BOOL)writeKeyToFile:(NSString *)file;
 
