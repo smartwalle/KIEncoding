@@ -7,7 +7,8 @@
 //
 
 #import "KIRSAPublicKey.h"
-#import <openssl/pem.h>
+#include <openssl/pem.h>
+#include <openssl/md5.h>
 
 @implementation KIRSAPublicKey
 
@@ -106,6 +107,96 @@
         return NO;
     }
     
+    return YES;
+}
+
+- (BOOL)verifySignatureWithSHA128:(NSData *)signature plainData:(NSData *)plainData error:(NSError **)error {
+    SHA_CTX ctx;
+    unsigned char digestData[SHA_DIGEST_LENGTH];
+    if(!SHA1_Init(&ctx)) {
+        if (error != nil) {
+            *error = [KIRSAPublicKey RSAError];
+        }
+        return NO;
+    }
+    if (!SHA1_Update(&ctx, plainData.bytes, plainData.length)) {
+        if (error != nil) {
+            *error = [KIRSAPublicKey RSAError];
+        }
+        return NO;
+    }
+    if (!SHA1_Final(digestData, &ctx)) {
+        if (error != nil) {
+            *error = [KIRSAPublicKey RSAError];
+        }
+        return NO;
+    }
+    if (!RSA_verify(NID_sha1, digestData, SHA_DIGEST_LENGTH, signature.bytes, (int)signature.length, _rsa)) {
+        if (error != nil) {
+            *error = [KIRSAPublicKey RSAError];
+        }
+        return NO;
+    }
+    return YES;
+}
+
+- (BOOL)verifySignatureWithSHA256:(NSData *)cipherData plainData:(NSData *)plainData error:(NSError **)error {
+    SHA256_CTX ctx;
+    unsigned char digestData[SHA256_DIGEST_LENGTH];
+    if(!SHA256_Init(&ctx)) {
+        if (error != nil) {
+            *error = [KIRSAPublicKey RSAError];
+        }
+        return NO;
+    }
+    if (!SHA256_Update(&ctx, plainData.bytes, plainData.length)) {
+        if (error != nil) {
+            *error = [KIRSAPublicKey RSAError];
+        }
+        return NO;
+    }
+    if (!SHA256_Final(digestData, &ctx)) {
+        if (error != nil) {
+            *error = [KIRSAPublicKey RSAError];
+        }
+        return NO;
+    }
+    if (!RSA_verify(NID_sha256, digestData, SHA256_DIGEST_LENGTH, cipherData.bytes, (int)cipherData.length, _rsa)) {
+        if (error != nil) {
+            *error = [KIRSAPublicKey RSAError];
+        }
+        return NO;
+    }
+    return YES;
+}
+
+- (BOOL)verifySignatureWithMD5:(NSData *)signature plainData:(NSData *)plainData error:(NSError **)error {
+    MD5_CTX ctx;
+    unsigned char digestData[MD5_DIGEST_LENGTH];
+    if(!MD5_Init(&ctx)) {
+        if (error != nil) {
+            *error = [KIRSAPublicKey RSAError];
+        }
+        return NO;
+    }
+    if (!MD5_Update(&ctx, plainData.bytes, plainData.length)) {
+        if (error != nil) {
+            *error = [KIRSAPublicKey RSAError];
+        }
+        return NO;
+    }
+    if (!MD5_Final(digestData, &ctx)) {
+        if (error != nil) {
+            *error = [KIRSAPublicKey RSAError];
+        }
+        return NO;
+    }
+    if (!RSA_verify(NID_md5, digestData, MD5_DIGEST_LENGTH, signature.bytes, (int)signature.length, _rsa)) {
+        if (error != nil) {
+            *error = [KIRSAPublicKey RSAError];
+        }
+        return NO;
+    }
     return YES;
 }
 

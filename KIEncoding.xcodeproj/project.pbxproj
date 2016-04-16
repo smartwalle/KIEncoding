@@ -27,6 +27,8 @@
 		187F6A2B1CC0A6AE00450E22 /* KIRSAKey.m in Sources */ = {isa = PBXBuildFile; fileRef = 187F6A2A1CC0A6AE00450E22 /* KIRSAKey.m */; };
 		187F6A2D1CC0AD5000450E22 /* a.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 187F6A2C1CC0AD5000450E22 /* a.mp3 */; };
 		BC6398F13EF091F8AD0D9A9E /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 31959742FCBCF5316C7213EF /* libPods.a */; };
+		D51E8A211CC2291B008D8D87 /* a.txt in Resources */ = {isa = PBXBuildFile; fileRef = D51E8A201CC2291A008D8D87 /* a.txt */; };
+		D51E8A231CC22960008D8D87 /* b.txt in Resources */ = {isa = PBXBuildFile; fileRef = D51E8A221CC22960008D8D87 /* b.txt */; };
 		D5D617931CBFC605000EC32F /* NSData+KIAES.m in Sources */ = {isa = PBXBuildFile; fileRef = D5D6178F1CBFC605000EC32F /* NSData+KIAES.m */; };
 		D5D617941CBFC605000EC32F /* NSString+KIAES.m in Sources */ = {isa = PBXBuildFile; fileRef = D5D617911CBFC605000EC32F /* NSString+KIAES.m */; };
 		D5E4B0381CC107D500DD1E36 /* NSBundle+KIAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = D5E4B0371CC107D500DD1E36 /* NSBundle+KIAdditions.m */; };
@@ -91,6 +93,8 @@
 		22F3950DE254755440E3A13D /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		31959742FCBCF5316C7213EF /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		41263AF73522B5A400BB9817 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
+		D51E8A201CC2291A008D8D87 /* a.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = a.txt; sourceTree = "<group>"; };
+		D51E8A221CC22960008D8D87 /* b.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = b.txt; sourceTree = "<group>"; };
 		D5D6178E1CBFC605000EC32F /* NSData+KIAES.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+KIAES.h"; sourceTree = "<group>"; };
 		D5D6178F1CBFC605000EC32F /* NSData+KIAES.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+KIAES.m"; sourceTree = "<group>"; };
 		D5D617901CBFC605000EC32F /* NSString+KIAES.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+KIAES.h"; sourceTree = "<group>"; };
@@ -159,6 +163,8 @@
 				181E4E511CBF5D9700699077 /* AppDelegate.h */,
 				181E4E521CBF5D9700699077 /* AppDelegate.m */,
 				187F6A2C1CC0AD5000450E22 /* a.mp3 */,
+				D51E8A201CC2291A008D8D87 /* a.txt */,
+				D51E8A221CC22960008D8D87 /* b.txt */,
 				187F6A301CC0F24200450E22 /* hello.en */,
 				181E4E541CBF5D9700699077 /* ViewController.h */,
 				181E4E551CBF5D9700699077 /* ViewController.m */,
@@ -388,8 +394,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D51E8A211CC2291B008D8D87 /* a.txt in Resources */,
 				187F6A2D1CC0AD5000450E22 /* a.mp3 in Resources */,
 				181E4E5E1CBF5D9700699077 /* LaunchScreen.storyboard in Resources */,
+				D51E8A231CC22960008D8D87 /* b.txt in Resources */,
 				181E4E5B1CBF5D9700699077 /* Assets.xcassets in Resources */,
 				181E4E591CBF5D9700699077 /* Main.storyboard in Resources */,
 			);

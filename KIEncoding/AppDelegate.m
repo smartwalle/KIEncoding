@@ -30,33 +30,24 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     NSString *pubPath = KIDirectoryBaseDocument(@"test_pub_1.key");
     NSString *priPath = KIDirectoryBaseDocument(@"test_pri_1.key");
-    NSLog(@"%@", pubPath);
     
-    NSData *pt = [NSData dataWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"a" ofType:@"mp3"]];//[@"这个内容被加密了，你知道吗？" dataUsingUTF8Encoding];
-    
-    pt = [@"这个是加密内容" dataUsingUTF8Encoding];
-    
-   
-
-//    KIRSA *rsa = [KIRSA generateKey];
-//    self.priKey = rsa.privateKey;
-//    self.pubKey = rsa.publicKey;
-//    [self.priKey writeKeyToFile:priPath];
-//    [self.pubKey writeKeyToFile:pubPath];
-    
-//    self.pubKey = [[KIRSAPublicKey alloc] initWithFile:pubPath];
-//    self.priKey = [[KIRSAPrivateKey alloc] initWithFile:priPath];
+    NSData *pt = [NSData dataWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"a" ofType:@"txt"]];
     
     self.pubKey = [KIRSAPublicKey keyWithData:[NSData dataWithContentsOfFile:pubPath]];
-    self.priKey = [KIRSAPrivateKey keyWithData:[NSData dataWithContentsOfFile:priPath] password:nil];
+    self.priKey = [KIRSAPrivateKey keyWithData:[NSData dataWithContentsOfFile:priPath]];
     
-
-    __weak AppDelegate *weakSelf = self;
-    [self.pubKey encrypt:pt finishedBlock:^(NSData *cipherData, NSError *error) {
-        [weakSelf.priKey decrypt:cipherData finishedBlock:^(NSData *plainData, NSError *error) {
-            NSLog(@"解密出来啦：%@", [plainData UTF8String]);
-        }];
-    }];
+    
+    NSData *d128 = [self.priKey signWithSHA128:pt error:nil];
+    NSData *d256 = [self.priKey signWithSHA256:pt error:nil];
+    NSData *md = [self.priKey signWithMD5:pt error:nil];
+    
+    
+    pt = [NSData dataWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"b" ofType:@"txt"]];
+    
+    NSError *err;
+    NSLog(@"%d   %@", [self.pubKey verifySignatureWithSHA128:d128 plainData:pt error:&err], err);
+    NSLog(@"%d   %@", [self.pubKey verifySignatureWithSHA256:d256 plainData:pt error:&err], err);
+    NSLog(@"%d   %@", [self.pubKey verifySignatureWithMD5:md plainData:pt error:&err], err);
     
     
     return YES;

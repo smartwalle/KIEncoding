@@ -7,7 +7,8 @@
 //
 
 #import "KIRSAPrivateKey.h"
-#import <openssl/pem.h>
+#include <openssl/pem.h>
+#include <openssl/md5.h>
 
 @implementation KIRSAPrivateKey
 
@@ -111,6 +112,111 @@
     }
     
     return YES;
+}
+
+- (NSData *)signWithSHA128:(NSData *)plainData error:(NSError **)error {
+    SHA_CTX ctx;
+    unsigned char messageDigest[SHA_DIGEST_LENGTH];
+    if (!SHA1_Init(&ctx)) {
+        if (error != nil) {
+            *error = [KIRSAPrivateKey RSAError];
+        }
+        return nil;
+    }
+    if (!SHA1_Update(&ctx, plainData.bytes, plainData.length)) {
+        if (error != nil) {
+            *error = [KIRSAPrivateKey RSAError];
+        }
+        return nil;
+    }
+    if (!SHA1_Final(messageDigest, &ctx)) {
+        if (error != nil) {
+            *error = [KIRSAPrivateKey RSAError];
+        }
+        return nil;
+    }
+    
+    NSMutableData *signature = [NSMutableData dataWithLength:self.RSASize];
+    unsigned int sLength = 0;
+    if (!RSA_sign(NID_sha1, messageDigest, SHA_DIGEST_LENGTH, signature.mutableBytes, &sLength, _rsa)) {
+        if (error != nil) {
+            *error = [KIRSAPrivateKey RSAError];
+        }
+        return nil;
+    }
+    [signature setLength:sLength];
+    
+    return signature;
+}
+
+- (NSData *)signWithSHA256:(NSData *)plainData error:(NSError **)error {
+    SHA256_CTX ctx;
+    unsigned char digestData[SHA256_DIGEST_LENGTH];
+    if (!SHA256_Init(&ctx)) {
+        if (error != nil) {
+            *error = [KIRSAPrivateKey RSAError];
+        }
+        return nil;
+    }
+    if (!SHA256_Update(&ctx, plainData.bytes, plainData.length)) {
+        if (error != nil) {
+            *error = [KIRSAPrivateKey RSAError];
+        }
+        return nil;
+    }
+    if (!SHA256_Final(digestData, &ctx)) {
+        if (error != nil) {
+            *error = [KIRSAPrivateKey RSAError];
+        }
+        return nil;
+    }
+    
+    NSMutableData *signature = [NSMutableData dataWithLength:self.RSASize];
+    unsigned int sLength = 0;
+    if (!RSA_sign(NID_sha256, digestData, SHA256_DIGEST_LENGTH, signature.mutableBytes, &sLength, _rsa)) {
+        if (error != nil) {
+            *error = [KIRSAPrivateKey RSAError];
+        }
+        return nil;
+    }
+    [signature setLength:sLength];
+    
+    return signature;
+}
+
+- (NSData *)signWithMD5:(NSData *)plainData error:(NSError **)error {
+    MD5_CTX ctx;
+    unsigned char messageDigest[MD5_DIGEST_LENGTH];
+    if (!MD5_Init(&ctx)) {
+        if (error != nil) {
+            *error = [KIRSAPrivateKey RSAError];
+        }
+        return nil;
+    }
+    if (!MD5_Update(&ctx, plainData.bytes, plainData.length)) {
+        if (error != nil) {
+            *error = [KIRSAPrivateKey RSAError];
+        }
+        return nil;
+    }
+    if (!MD5_Final(messageDigest, &ctx)) {
+        if (error != nil) {
+            *error = [KIRSAPrivateKey RSAError];
+        }
+        return nil;
+    }
+    
+    NSMutableData *signature = [NSMutableData dataWithLength:self.RSASize];
+    unsigned int sLength = 0;
+    if (!RSA_sign(NID_md5, messageDigest, MD5_DIGEST_LENGTH, signature.mutableBytes, &sLength, _rsa)) {
+        if (error != nil) {
+            *error = [KIRSAPrivateKey RSAError];
+        }
+        return nil;
+    }
+    [signature setLength:sLength];
+    
+    return signature;
 }
 
 @end

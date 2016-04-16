@@ -21,4 +21,8 @@
 - (BOOL)writeKeyToFile:(NSString *)file password:(NSString *)password;
 - (BOOL)writeKeyToFile:(NSString *)file cipher:(const EVP_CIPHER *)enc password:(NSString *)password;
 
+- (NSData *)signWithSHA128:(NSData *)plainData error:(NSError **)error;
+- (NSData *)signWithSHA256:(NSData *)plainData error:(NSError **)error;
+- (NSData *)signWithMD5:(NSData *)plainData error:(NSError **)error;
+
 @end

@@ -16,4 +16,8 @@
 
 - (BOOL)writeKeyToFile:(NSString *)file;
 
+- (BOOL)verifySignatureWithSHA128:(NSData *)signature plainData:(NSData *)plainData error:(NSError **)error;
+- (BOOL)verifySignatureWithSHA256:(NSData *)cipherData plainData:(NSData *)plainData error:(NSError **)error;
+- (BOOL)verifySignatureWithMD5:(NSData *)signature plainData:(NSData *)plainData error:(NSError **)error;
+
 @end

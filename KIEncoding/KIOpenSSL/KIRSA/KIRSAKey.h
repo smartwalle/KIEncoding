@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #include <openssl/err.h>
-#import <openssl/rsa.h>
+#include <openssl/rsa.h>
 
 @interface KIRSAKey : NSObject {
     int _rsaSize;
