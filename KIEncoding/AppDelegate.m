@@ -27,77 +27,10 @@
 
 @implementation AppDelegate
 
-// 生成公钥文件和私钥文件，私钥文件带密码
-int generate_key_files(const char *pub_keyfile, const char *pri_keyfile,
-                       const unsigned char *passwd, int passwd_len)
-{
-    RSA *rsa = NULL;
-//    RAND_seed(rnd_seed, sizeof(rnd_seed));
-    rsa = RSA_generate_key(1024, RSA_3, NULL, NULL);
-    if(rsa == NULL)
-    {
-        printf("RSA_generate_key error!\n");
-        return -1;
-    }
-    
-    BIO *bp = BIO_new(BIO_s_file());
-    
-    // 公钥文件生成成功，释放资源
-    printf("Create public key ok!\n");
-    BIO_free_all(bp);
-    
-    // 生成私钥文件
-    bp = BIO_new_file(pri_keyfile, "w+");
-    if(NULL == bp)
-    {
-        printf("generate_key bio file new error2!\n");
-        return -1;
-    }
-    
-    if(PEM_write_bio_RSAPrivateKey(bp, rsa,
-                                   EVP_des_ede3_ofb(), (unsigned char *)"123456",
-                                   6, NULL, NULL) != 1)
-    {
-        printf("PEM_write_bio_RSAPublicKey error!\n");
-        return -1;
-    }
-    
-    
-    // 开始生成公钥文件
-
-    if(NULL == bp)
-    {
-        printf("generate_key bio file new error!\n");
-        return -1;
-    }
-    
-    if(BIO_write_filename(bp, (void *)pub_keyfile) <= 0)
-    {
-        printf("BIO_write_filename error!\n");
-        return -1;
-    }
-    
-    if(PEM_write_bio_RSAPublicKey(bp, rsa) != 1)
-    {
-        printf("PEM_write_bio_RSAPublicKey error!\n");
-        return -1;
-    }
-    
-    // 释放资源
-    printf("Create private key ok!\n");
-    BIO_free_all(bp);
-    RSA_free(rsa);  
-    
-    return 0;  
-}
-
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    NSString *pubPath = KIDirectoryBaseDocument(@"test_pub_3.key");
-    NSString *priPath = KIDirectoryBaseDocument(@"test_pri_4.key");
+    NSString *pubPath = KIDirectoryBaseDocument(@"test_pub_1.key");
+    NSString *priPath = KIDirectoryBaseDocument(@"test_pri_1.key");
     NSLog(@"%@", pubPath);
-    
-//    generate_key_files([pubPath UTF8String], [priPath UTF8String], "123456", 6);
-    
     
     NSData *pt = [NSData dataWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"a" ofType:@"mp3"]];//[@"这个内容被加密了，你知道吗？" dataUsingUTF8Encoding];
     
@@ -108,23 +41,17 @@ int generate_key_files(const char *pub_keyfile, const char *pri_keyfile,
 //    KIRSA *rsa = [KIRSA generateKey];
 //    self.priKey = rsa.privateKey;
 //    self.pubKey = rsa.publicKey;
+//    [self.priKey writeKeyToFile:priPath];
+//    [self.pubKey writeKeyToFile:pubPath];
     
     self.pubKey = [[KIRSAPublicKey alloc] initWithFile:pubPath];
-    self.priKey = [[KIRSAPrivateKey alloc] initWithFile:priPath password:@"12345678"];
+    self.priKey = [[KIRSAPrivateKey alloc] initWithFile:priPath];
     
-//    [self.pubKey writeKeyToFile:KIDirectoryBaseDocument(@"test_pub_4.key")];
-//    [self.priKey writeKeyToFile:KIDirectoryBaseDocument(@"test_pri_4.key") password:@"12345678"];
 
-    
     __weak AppDelegate *weakSelf = self;
     [self.pubKey encrypt:pt finishedBlock:^(NSData *cipherData, NSError *error) {
-        NSLog(@"%@", [cipherData hexString]);
-        
         [weakSelf.priKey decrypt:cipherData finishedBlock:^(NSData *plainData, NSError *error) {
             NSLog(@"解密出来啦：%@", [plainData UTF8String]);
-            NSLog(@"%@", KIDirectoryBaseDocument(@"aaa.mp3"));
-//            [plainData writeToFile:KIPathBaseDocument(@"aaa.mp3") atomically:YES];
-            
         }];
     }];
     

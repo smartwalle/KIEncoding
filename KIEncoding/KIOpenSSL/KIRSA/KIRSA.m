@@ -43,20 +43,6 @@
         r.privateKey = privateKey;
         r.publicKey  = publicKey;
         
-        
-        unsigned char  rsa_n[128], rsa_d[128];
-        BN_bn2bin(rsa->n, rsa_n);
-        BN_bn2bin(rsa->d, rsa_d);
-        
-        NSData *nd = [NSData dataWithBytes:rsa_n length:128];
-        NSData *dd = [NSData dataWithBytes:rsa_d length:128];
-        
-        NSLog(@"%@--%@", [nd base64Encoded] , [dd base64Encoded]);
-        
-        
-        
-        
-        
         RSA_free(rsa);
     } else {
         r = nil;

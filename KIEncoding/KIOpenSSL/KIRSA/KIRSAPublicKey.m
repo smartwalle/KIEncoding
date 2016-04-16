@@ -19,26 +19,9 @@
     }
     
     /*
-     特别注释：
-     
-     对于同一份密钥，使用 openssl 命令导出的公钥和使用 openssl 代码生成的公钥在格式及值上都不一样，所以这里读取两次。
-     第一次是针对 openssl 命令导出的公钥，该公钥采用 PEM_read_bio_RSA_PUBKEY 读取；
-     第二次是针对 openssl 代码导出的公钥，该公钥采用 PEM_read_bio_RSAPublicKey 读取。
-     
-     命令生成的公钥:
-     -----BEGIN PUBLIC KEY-----
-     xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-     -----END PUBLIC KEY-----
-
-     
-     代码生成的密钥:
-     -----BEGIN RSA PUBLIC KEY-----
-     xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-     -----END RSA PUBLIC KEY-----
-     
-     最简单的区分办法就是判断 BGEIN 和 END 后面有没有 RSA。
+     PEM_read_bio_RSA_PUBKEY   =>  PEM_write_bio_RSA_PUBKEY 和 openssl 命令导出的公钥
+     PEM_read_bio_RSAPublicKey =>  PEM_write_bio_RSAPublicKey
      */
-    
     RSA *rsa = NULL;
     rsa = PEM_read_bio_RSA_PUBKEY(bio, NULL, NULL, NULL);
     if(rsa == NULL) {
@@ -99,7 +82,7 @@
         return NO;
     }
     
-    int s = PEM_write_bio_RSAPublicKey(bio, _rsa);
+    int s = PEM_write_bio_RSA_PUBKEY(bio, _rsa);
     BIO_free_all(bio);
     if (s != 1) {
         return NO;

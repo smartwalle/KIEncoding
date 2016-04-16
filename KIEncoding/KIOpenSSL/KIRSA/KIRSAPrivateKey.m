@@ -11,6 +11,10 @@
 
 @implementation KIRSAPrivateKey
 
+- (instancetype)initWithFile:(NSString *)file {
+    return [self initWithFile:file password:nil];
+}
+
 - (instancetype)initWithFile:(NSString *)file password:(NSString *)password {
     OpenSSL_add_all_algorithms();
     

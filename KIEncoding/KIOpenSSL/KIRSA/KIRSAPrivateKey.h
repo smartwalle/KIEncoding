@@ -11,6 +11,7 @@
 
 @interface KIRSAPrivateKey : KIRSAKey
 
+- (instancetype)initWithFile:(NSString *)file;
 - (instancetype)initWithFile:(NSString *)file password:(NSString *)password;
 - (instancetype)initWithData:(NSData *)data;
 
