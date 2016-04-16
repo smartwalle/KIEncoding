@@ -7,8 +7,8 @@
 //
 
 #import "KIRSAPrivateKey.h"
-#include <openssl/pem.h>
-#include <openssl/md5.h>
+#import <openssl/pem.h>
+#import <openssl/md5.h>
 
 @implementation KIRSAPrivateKey
 
