@@ -60,6 +60,26 @@
     return key;
 }
 
+- (NSData *)keyData {
+    char *keyBytes;
+    size_t keyLen;
+    
+    BIO *bio = BIO_new(BIO_s_mem());
+    PEM_write_bio_RSAPrivateKey(bio, _rsa, NULL, NULL, 0, 0, NULL);
+    keyLen = (size_t)BIO_pending(bio);
+    keyBytes = malloc(keyLen);
+    BIO_read(bio, keyBytes, (int)keyLen);
+    
+    NSData *keyData = [NSData dataWithBytesNoCopy:keyBytes length:keyLen];
+    return keyData;
+}
+
+- (NSString *)description {
+    NSMutableString *dataString = [[NSMutableString alloc] initWithData:self.keyData
+                                                               encoding:NSUTF8StringEncoding];
+    return dataString;
+}
+
 - (NSData *)_encrypt:(NSData *)plainData error:(NSError **)error {
     NSMutableData *cipherData = [NSMutableData dataWithLength:self.RSASize];
     int cLen = RSA_private_encrypt((int)plainData.length, plainData.bytes, cipherData.mutableBytes, _rsa, self.padding);
@@ -93,7 +113,7 @@
 }
 
 - (BOOL)writeKeyToFile:(NSString *)file password:(NSString *)password {
-    return [self writeKeyToFile:file cipher:EVP_des_ede3_ofb() password:password];
+    return [self writeKeyToFile:file cipher:(password != nil ? EVP_des_ede3_ofb() : NULL) password:password];
 }
 
 - (BOOL)writeKeyToFile:(NSString *)file cipher:(const EVP_CIPHER *)enc password:(NSString *)password {

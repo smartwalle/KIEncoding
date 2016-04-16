@@ -64,6 +64,26 @@
     return key;
 }
 
+- (NSData *)keyData {
+    char *keyBytes;
+    size_t keyLen;
+    
+    BIO *bio = BIO_new(BIO_s_mem());
+    PEM_write_bio_RSA_PUBKEY(bio, _rsa);
+    keyLen = (size_t)BIO_pending(bio);
+    keyBytes = malloc(keyLen);
+    BIO_read(bio, keyBytes, (int)keyLen);
+    
+    NSData *keyData = [NSData dataWithBytesNoCopy:keyBytes length:keyLen];
+    return keyData;
+}
+
+- (NSString *)description {
+    NSMutableString *dataString = [[NSMutableString alloc] initWithData:self.keyData
+                                                               encoding:NSUTF8StringEncoding];
+    return dataString;
+}
+
 - (NSData *)_encrypt:(NSData *)plainData error:(NSError **)error {
     NSMutableData *cipherData = [NSMutableData dataWithLength:self.RSASize];
     int cLen = RSA_public_encrypt((int)plainData.length, plainData.bytes, cipherData.mutableBytes, _rsa, self.padding);

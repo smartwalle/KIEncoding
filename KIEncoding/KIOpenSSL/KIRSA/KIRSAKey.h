@@ -35,6 +35,11 @@
 - (void)encrypt:(NSData *)plainData finishedBlock:(void(^)(NSData *cipherData, NSError *error))block;
 - (void)decrypt:(NSData *)cipherData finishedBlock:(void(^)(NSData *plainData, NSError *error))block;
 
+- (NSData *)keyData;
+
+@end
+
+@interface KIRSAKey (Error)
 
 + (NSError *)RSAError;
 

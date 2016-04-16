@@ -14,23 +14,6 @@
 
 @implementation KIRSAKey
 
-+ (NSError *)RSAError {
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        ERR_load_crypto_strings();
-    });
-    
-    unsigned long errCode = ERR_get_error();
-    
-    char *errMsg = malloc(130);
-    ERR_error_string(errCode, errMsg);
-    NSString *errDes = [NSString stringWithFormat:@"KIRSA Error: Code=%lu, Des:%s", errCode, errMsg];
-    free(errMsg);
-    
-    NSError *err = [NSError errorWithDomain:@"KIEncoding" code:errCode userInfo:@{NSLocalizedDescriptionKey: errDes}];
-    return err;
-}
-
 - (void)dealloc {
     _concurrentQueue = nil;
     
@@ -39,7 +22,13 @@
     }
 }
 
+- (instancetype)init {
+    NSAssert(NO, @"调用 initWithRSA 进行初始化");
+    return nil;
+}
+
 - (instancetype)initWithRSA:(RSA *)rsa {
+    NSAssert(![self isMemberOfClass:[KIRSAKey class]], @"不能直接初始化 KIRSAKey");
     if (self = [super init]) {
         CRYPTO_add(&rsa->references, 1, CRYPTO_LOCK_RSA);
         _rsa = rsa;
@@ -102,10 +91,12 @@
 }
 
 - (NSData *)_encrypt:(NSData *)plainData error:(NSError **)error {
+    NSAssert(NO, @"KIRSAKEY _encrypt:error 需要由子类实现.");
     return nil;
 }
 
 - (NSData *)_decrypt:(NSData *)cipherData error:(NSError **)error {
+    NSAssert(NO, @"KIRSAKEY _decrypt:error 需要由子类实现.");
     return nil;
 }
 
@@ -163,6 +154,33 @@
         _concurrentQueue = dispatch_queue_create("KIRSA_QUEUE", DISPATCH_QUEUE_CONCURRENT);
     }
     return _concurrentQueue;
+}
+
+- (NSData *)keyData {
+    NSAssert(NO, @"KIRSAKEY keyData 需要由子类实现.");
+    return nil;
+}
+
+@end
+
+
+@implementation KIRSAKey (Error)
+
++ (NSError *)RSAError {
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        ERR_load_crypto_strings();
+    });
+    
+    unsigned long errCode = ERR_get_error();
+    
+    char *errMsg = malloc(130);
+    ERR_error_string(errCode, errMsg);
+    NSString *errDes = [NSString stringWithFormat:@"KIRSA Error: Code=%lu, Des:%s", errCode, errMsg];
+    free(errMsg);
+    
+    NSError *err = [NSError errorWithDomain:@"KIEncoding" code:errCode userInfo:@{NSLocalizedDescriptionKey: errDes}];
+    return err;
 }
 
 @end
