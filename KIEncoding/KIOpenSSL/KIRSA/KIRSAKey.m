@@ -7,6 +7,7 @@
 //
 
 #import "KIRSAKey.h"
+#import <openssl/sha.h>
 
 @interface KIRSAKey ()
 @property (nonatomic, strong) dispatch_queue_t concurrentQueue;
@@ -59,10 +60,10 @@
     if (plainData == nil) {
         return nil;
     }
-    int blockSize = self.RSASize - 11;
+    int blockSize = self.blockSize;
     __block NSMutableData *cipherData = [[NSMutableData alloc] init];
     [self packageData:plainData packageSize:blockSize block:^(NSUInteger idx, NSData *packageData) {
-        NSData *cd = [self _encrypt:packageData error:error];
+        NSData *cd = [self _encrypt:packageData blockSize:(int)packageData.length error:error];
         if (cd != nil) {
             [cipherData appendData:cd];
         } else {
@@ -90,7 +91,7 @@
     return plainData;
 }
 
-- (NSData *)_encrypt:(NSData *)plainData error:(NSError **)error {
+- (NSData *)_encrypt:(NSData *)plainData blockSize:(int)blockSize error:(NSError **)error {
     NSAssert(NO, @"KIRSAKEY _encrypt:error 需要由子类实现.");
     return nil;
 }
@@ -147,6 +148,19 @@
         _padding = RSA_PKCS1_PADDING;
     }
     return _padding;
+}
+
+- (int)blockSize {
+    if (self.padding == RSA_PKCS1_PADDING) {
+        return self.RSASize - 11;
+    } else if (self.padding == RSA_PKCS1_OAEP_PADDING) {
+        // http://marc.info/?l=openssl-dev&m=95555102912196&w=2
+        // https://www.mail-archive.com/search?l=openssl-dev@openssl.org&q=subject:%22flen+for+RSA_PKCS1_OAEP_PADDING%22&o=newest&f=1
+        return self.RSASize - 2 * SHA_DIGEST_LENGTH - 2; // 网上说的是减去41，但是这里设置为41的时候，提示 too large
+    } else if (self.padding == RSA_X931_PADDING) {
+        return self.RSASize - 2;
+    }
+    return self.RSASize;
 }
 
 - (dispatch_queue_t)concurrentQueue {

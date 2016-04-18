@@ -80,9 +80,9 @@
     return dataString;
 }
 
-- (NSData *)_encrypt:(NSData *)plainData error:(NSError **)error {
+- (NSData *)_encrypt:(NSData *)plainData blockSize:(int)blockSize error:(NSError **)error {
     NSMutableData *cipherData = [NSMutableData dataWithLength:self.RSASize];
-    int cLen = RSA_private_encrypt((int)plainData.length, plainData.bytes, cipherData.mutableBytes, _rsa, self.padding);
+    int cLen = RSA_private_encrypt((int)blockSize, plainData.bytes, cipherData.mutableBytes, _rsa, self.padding);
     if (cLen < 0) {
         if (error != nil) {
             *error = [KIRSAPrivateKey RSAError];
@@ -94,10 +94,8 @@
 }
 
 - (NSData *)_decrypt:(NSData *)cipherData error:(NSError **)error {
-    NSUInteger len = [cipherData length];
-
     NSMutableData *plainData = [NSMutableData dataWithLength:self.RSASize];
-    int pLen = RSA_private_decrypt((int)len, cipherData.bytes, plainData.mutableBytes, _rsa, self.padding);
+    int pLen = RSA_private_decrypt((int)cipherData.length, cipherData.bytes, plainData.mutableBytes, _rsa, self.padding);
     if (pLen < 0) {
         if (error != nil) {
             *error = [KIRSAPrivateKey RSAError];
