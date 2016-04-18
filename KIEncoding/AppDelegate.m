@@ -33,14 +33,14 @@
     
     NSData *pt = [NSData dataWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"a" ofType:@"txt"]];
     
-    KIRSA *rsa = [KIRSA generateKey];
-    self.priKey = rsa.privateKey;
-    self.pubKey = rsa.publicKey;
-    [self.priKey writeKeyToFile:priPath password:@"123456"];
-    [self.pubKey writeKeyToFile:pubPath];
+//    KIRSA *rsa = [KIRSA generateKey];
+//    self.priKey = rsa.privateKey;
+//    self.pubKey = rsa.publicKey;
+//    [self.priKey writeKeyToFile:priPath password:@"123456"];
+//    [self.pubKey writeKeyToFile:pubPath];
     
-//    self.pubKey = [KIRSAPublicKey keyWithData:[NSData dataWithContentsOfFile:pubPath]];
-//    self.priKey = [KIRSAPrivateKey keyWithData:[NSData dataWithContentsOfFile:priPath]];
+    self.pubKey = [KIRSAPublicKey keyWithData:[NSData dataWithContentsOfFile:pubPath]];
+    self.priKey = [KIRSAPrivateKey keyWithData:[NSData dataWithContentsOfFile:priPath] password:@"123456"];
     
     
     NSData *d128 = [self.priKey signWithSHA128:pt error:nil];
