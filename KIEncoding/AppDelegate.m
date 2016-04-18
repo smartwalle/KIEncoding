@@ -33,14 +33,16 @@
     
     NSData *pt = [NSData dataWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"a" ofType:@"txt"]];
     
-    KIRSA *rsa = [KIRSA generateKeyWithBits:1024];
-    self.priKey = rsa.privateKey;
-    self.pubKey = rsa.publicKey;
+//    KIRSA *rsa = [KIRSA generateKeyWithBits:1024];
+//    self.priKey = rsa.privateKey;
+//    self.pubKey = rsa.publicKey;
     
+    self.pubKey = [KIRSAPublicKey keyWithData:[NSData dataWithContentsOfFile:pubPath]];
+    self.priKey = [KIRSAPrivateKey keyWithData:[NSData dataWithContentsOfFile:priPath]];
     
     NSError *e;
     NSData *ct = [self.pubKey encrypt:[@"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa" dataUsingUTF8Encoding] error:&e];
-    NSLog(@"%@  %@", ct, e);
+    NSLog(@"%@  %@", [ct hexString], e);
     
     pt = [self.priKey decrypt:ct error:nil];
     NSLog(@"%@", [pt UTF8String]);
@@ -49,7 +51,7 @@
     NSLog(@"=========");
     e = nil;
     ct = [self.priKey encrypt:[@"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa" dataUsingUTF8Encoding] error:&e];
-    NSLog(@"%@   %@", ct, e);
+    NSLog(@"%@   %@", [ct hexString], e);
     
     pt = [self.pubKey decrypt:ct error:nil];
     NSLog(@"%@", [pt UTF8String]);
@@ -57,8 +59,6 @@
 //    [self.priKey writeKeyToFile:priPath password:@"123456"];
 //    [self.pubKey writeKeyToFile:pubPath];
     
-//    self.pubKey = [KIRSAPublicKey keyWithData:[NSData dataWithContentsOfFile:pubPath]];
-//    self.priKey = [KIRSAPrivateKey keyWithData:[NSData dataWithContentsOfFile:priPath]];
     
     
 //    NSData *d128 = [self.priKey signWithSHA128:pt error:nil];
@@ -73,8 +73,8 @@
 //    NSLog(@"%d   %@", [self.pubKey verifySignatureWithSHA256:d256 plainData:pt error:&err], err);
 //    NSLog(@"%d   %@", [self.pubKey verifySignatureWithMD5:md plainData:pt error:&err], err);
 //    
-//    NSLog(@"%@ %@", pubPath, self.pubKey);
-//    NSLog(@"%@", self.priKey);
+    NSLog(@"%@", self.pubKey);
+    NSLog(@"%@", self.priKey);
     
     return YES;
 }
