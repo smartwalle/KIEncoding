@@ -37,19 +37,19 @@
     return self;
 }
 
-- (void)packageData:(NSData *)originalData packageSize:(int)blockSize block:(void(^)(NSUInteger idx, NSData *packageData))block {
+- (void)packageData:(NSData *)originalData packageSize:(int)packageSize block:(void(^)(NSUInteger idx, NSData *packageData))block {
     NSUInteger len = [originalData length];
     
-    int diff = len % blockSize;
-    NSUInteger count = len / blockSize + (diff > 0 ? 1 : 0);
+    int diff = len % packageSize;
+    NSUInteger count = len / packageSize + (diff > 0 ? 1 : 0);
     
-    int blockLen = blockSize;
+    int blockLen = packageSize;
     
     for (NSUInteger i=0; i<count; i++) {
         if (i == count - 1 && diff > 0) {
             blockLen = diff;
         }
-        NSData *pd = [originalData subdataWithRange:NSMakeRange(i*blockSize, blockLen)];
+        NSData *pd = [originalData subdataWithRange:NSMakeRange(i*packageSize, blockLen)];
         if (block != nil) {
             block(i, pd);
         }
@@ -60,9 +60,8 @@
     if (plainData == nil) {
         return nil;
     }
-    int blockSize = self.blockSize;
     __block NSMutableData *cipherData = [[NSMutableData alloc] init];
-    [self packageData:plainData packageSize:blockSize block:^(NSUInteger idx, NSData *packageData) {
+    [self packageData:plainData packageSize:self.blockSize block:^(NSUInteger idx, NSData *packageData) {
         NSData *cd = [self _encrypt:packageData blockSize:(int)packageData.length error:error];
         if (cd != nil) {
             [cipherData appendData:cd];

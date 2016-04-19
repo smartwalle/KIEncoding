@@ -30,8 +30,6 @@
 
 - (dispatch_queue_t)concurrentQueue;
 
-- (void)packageData:(NSData *)originalData packageSize:(int)blockSize block:(void(^)(NSUInteger idx, NSData *packageData))block;
-
 // 同步方法
 - (NSData *)encrypt:(NSData *)plainData error:(NSError **)error;
 - (NSData *)decrypt:(NSData *)cipherData error:(NSError **)error;

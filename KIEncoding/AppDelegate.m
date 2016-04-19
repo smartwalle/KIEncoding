@@ -44,17 +44,19 @@
     NSData *ct = [self.pubKey encrypt:[@"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa" dataUsingUTF8Encoding] error:&e];
     NSLog(@"%@  %@", [ct hexString], e);
     
+    ct = [@"5d2a3a7b6e57141746dbabe8a37554a7e27226b01c392544d32dbb4d84dc6bd643f652d65cb5d64fd0e8483f4639c11434afdd60a911c0d268e76a9633909edc41cf6073359f16c59cad81429b30223cd50a74c277f2daa21c889eb43e17d100e9633d48dbab8dcef8a0516065f2dcd771effdbab5b604c4c5d6a9c8e42b75a3" dataUsingHex];
+    
     pt = [self.priKey decrypt:ct error:nil];
     NSLog(@"%@", [pt UTF8String]);
 
     
-    NSLog(@"=========");
-    e = nil;
-    ct = [self.priKey encrypt:[@"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa" dataUsingUTF8Encoding] error:&e];
-    NSLog(@"%@   %@", [ct hexString], e);
-    
-    pt = [self.pubKey decrypt:ct error:nil];
-    NSLog(@"%@", [pt UTF8String]);
+//    NSLog(@"=========");
+//    e = nil;
+//    ct = [self.priKey encrypt:[@"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa" dataUsingUTF8Encoding] error:&e];
+//    NSLog(@"%@   %@", [ct hexString], e);
+//    
+//    pt = [self.pubKey decrypt:ct error:nil];
+//    NSLog(@"%@", [pt UTF8String]);
     
 //    [self.priKey writeKeyToFile:priPath password:@"123456"];
 //    [self.pubKey writeKeyToFile:pubPath];
