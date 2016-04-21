@@ -141,7 +141,7 @@
  */
 </string>
 			<key>Title</key>
-			<string>OpenSSL-iOS</string>
+			<string>KIOpenSSL</string>
 			<key>Type</key>
 			<string>PSGroupSpecifier</string>
 		</dict>
