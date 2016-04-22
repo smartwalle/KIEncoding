@@ -13,13 +13,8 @@ Pod::Spec.new do |s|
   s.ios.deployment_target   = '6.0'
 
   s.source       = { :git => "https://github.com/smartwalle/KIEncoding.git", :tag => "#{s.version}", :submodules => true }
-#  s.source_files  = "KIAdditions/KIAdditions/*.{h,m}"
-#  s.exclude_files = "Classes/Exclude"
+  s.source_files  = "KIEncoding/KIEncoding/*.{h,m}"
   s.requires_arc = true
-
-  s.subspec 'KIEncoding' do |ss|
-    ss.source_files  = "KIEncoding/KIEncoding/*.{h,m}"
-  end
 
   s.subspec 'KIDigest' do |ss|
     ss.source_files  = "KIEncoding/KIDigest/*.{h,m}"
