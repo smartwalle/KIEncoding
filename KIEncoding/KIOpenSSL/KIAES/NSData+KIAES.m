@@ -13,6 +13,8 @@
 @implementation NSData (KIAES)
 
 - (NSData *)AESEncryptWithMode:(KIAESMode)mode bits:(KIAESBits)bits key:(NSString *)key iv:(NSString *)iv {
+    OpenSSL_add_all_algorithms();
+    
     size_t blockLength = 0;
     size_t length = 0;
     
@@ -46,11 +48,15 @@
     }
     length += blockLength;
     
+    EVP_cleanup();
+    
     return [NSData dataWithBytesNoCopy:resultBytes length:length];
 }
 
 
 - (NSData *)AESDecryptWithMode:(KIAESMode)mode bits:(KIAESBits)bits key:(NSString *)key iv:(NSString *)iv {
+    OpenSSL_add_all_algorithms();
+    
     size_t blockLength = 0;
     size_t length = 0;
     
@@ -82,6 +88,8 @@
         return nil;
     }
     length += blockLength;
+    
+    EVP_cleanup();
     
     return [NSData dataWithBytesNoCopy:resultBytes length:length];
 }

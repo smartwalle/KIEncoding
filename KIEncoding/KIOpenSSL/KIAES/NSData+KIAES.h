@@ -23,9 +23,9 @@ typedef NS_ENUM(int, KIAESMode) {
 };
 
 typedef NS_ENUM(int, KIAESBits) {
-    KIAESBits_128 = 128,
-    KIAESBits_192 = 192,
-    KIAESBits_256 = 256,
+    KIAESBits_128 = 128,     // 密码的长度为 16 个字节
+    KIAESBits_192 = 192,     // 密码的长度为 24 个字节
+    KIAESBits_256 = 256,     // 密码的长度为 32 个字节
 };
 
 @interface NSData (KIAES)
