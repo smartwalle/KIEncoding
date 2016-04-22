@@ -12,26 +12,9 @@ Pod::Spec.new do |s|
   s.author       = { "SmartWalle" => "smartwalle@gmail.com" }
   s.ios.deployment_target   = '6.0'
 
-  s.source       = { :git => "https://github.com/smartwalle/KIEncoding.git", :tag => "#{s.version}", :submodules => true }
-  s.source_files  = "KIEncoding/KIEncoding/*.{h,m}"
-  s.ios.public_header_files = 'KIEncoding/KIEncoding/*.h'
+  s.source       = { :git => "https://github.com/smartwalle/KIEncoding.git", :tag => "#{s.version}"}
+  s.source_files  = "KIEncoding/KIEncoding/*.{h,m}", "KIEncoding/KIDigest/*.{h,m}", "KIEncoding/KIHMAC/*.{h,m}", "KIEncoding/KIOpenSSL/KIAES/*.{h,m}", "KIEncoding/KIOpenSSL/KIRSA/*.{h,m}"
   s.requires_arc = true
-
-  s.subspec 'KIDigest' do |ss|
-    ss.source_files  = "KIEncoding/KIDigest/*.{h,m}"
-  end
-
-  s.subspec 'KIHMAC' do |ss|
-    ss.source_files  = "KIEncoding/KIHMAC/*.{h,m}"
-  end
-
-  s.subspec 'KIAES' do |ss|
-    ss.source_files  = "KIEncoding/KIOpenSSL/KIAES/*.{h,m}"
-  end
-
-  s.subspec 'KIRSA' do |ss|
-    ss.source_files  = "KIEncoding/KIOpenSSL/KIRSA/*.{h,m}"
-  end
 
   s.dependency "KIOpenSSL"
 
