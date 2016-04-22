@@ -14,6 +14,7 @@ Pod::Spec.new do |s|
 
   s.source       = { :git => "https://github.com/smartwalle/KIEncoding.git", :tag => "#{s.version}", :submodules => true }
   s.source_files  = "KIEncoding/KIEncoding/*.{h,m}"
+  s.ios.public_header_files = 'KIEncoding/KIEncoding/*.h'
   s.requires_arc = true
 
   s.subspec 'KIDigest' do |ss|
