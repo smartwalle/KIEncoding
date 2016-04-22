@@ -193,6 +193,7 @@
     free(errMsg);
     
     NSError *err = [NSError errorWithDomain:@"KIEncoding" code:errCode userInfo:@{NSLocalizedDescriptionKey: errDes}];
+    ERR_free_strings();
     return err;
 }
 

@@ -15,11 +15,6 @@
 - (NSData *)AESEncryptWithMode:(KIAESMode)mode bits:(KIAESBits)bits key:(NSString *)key iv:(NSString *)iv {
     OpenSSL_add_all_algorithms();
     
-    size_t blockLength = 0;
-    size_t length = 0;
-    
-    EVP_CIPHER_CTX ctx;
-    
     const EVP_CIPHER *cipher = [self cipherWithMode:mode bits:bits];
     if (cipher == nil) {
         return nil;
@@ -31,36 +26,30 @@
         return nil;
     }
     
-    if (!EVP_EncryptInit(&ctx, cipher, (unsigned char *)[key UTF8String], (unsigned char *)[iv UTF8String])) {
-        free(resultBytes);
-        return nil;
-    }
+    size_t blockLength = 0;
+    size_t length = 0;
+    EVP_CIPHER_CTX *ctx = EVP_CIPHER_CTX_new();
     
-    if (!EVP_EncryptUpdate(&ctx, resultBytes, (int *)&blockLength, self.bytes, (int)self.length)) {
-        free(resultBytes);
-        return nil;
+    NSData *ciphertext = nil;
+    if (EVP_EncryptInit_ex(ctx, cipher, NULL, (unsigned char *)[key UTF8String], (unsigned char *)[iv UTF8String])) {
+        if (EVP_EncryptUpdate(ctx, resultBytes, (int *)&blockLength, self.bytes, (int)self.length)) {
+            length += blockLength;
+            if (EVP_EncryptFinal(ctx, resultBytes + length, (int *)&blockLength)) {
+                length += blockLength;
+                ciphertext = [NSData dataWithBytes:resultBytes length:length];
+            }
+        }
     }
-    length += blockLength;
-    
-    if (!EVP_EncryptFinal(&ctx, resultBytes + length, (int *)&blockLength)) {
-        free(resultBytes);
-        return nil;
-    }
-    length += blockLength;
-    
+    free(resultBytes);
+    EVP_CIPHER_CTX_free(ctx);
     EVP_cleanup();
     
-    return [NSData dataWithBytesNoCopy:resultBytes length:length];
+    return ciphertext;
 }
 
 
 - (NSData *)AESDecryptWithMode:(KIAESMode)mode bits:(KIAESBits)bits key:(NSString *)key iv:(NSString *)iv {
     OpenSSL_add_all_algorithms();
-    
-    size_t blockLength = 0;
-    size_t length = 0;
-    
-    EVP_CIPHER_CTX ctx;
     
     const EVP_CIPHER *cipher = [self cipherWithMode:mode bits:bits];
     if (cipher == nil) {
@@ -71,27 +60,27 @@
     if (resultBytes == NULL) {
         return nil;
     }
+   
+    size_t blockLength = 0;
+    size_t length = 0;
+    EVP_CIPHER_CTX *ctx = EVP_CIPHER_CTX_new();
     
-    if (!EVP_DecryptInit(&ctx, cipher, (unsigned char *)[key UTF8String], (unsigned char *)[iv UTF8String])) {
-        free(resultBytes);
-        return nil;
+    NSData *plaintext = nil;
+    if (EVP_DecryptInit_ex(ctx, cipher, NULL, (unsigned char *)[key UTF8String], (unsigned char *)[iv UTF8String])) {
+        if (EVP_DecryptUpdate(ctx, resultBytes, (int *)&blockLength, self.bytes, (int)self.length)) {
+            length += blockLength;
+            if (EVP_DecryptFinal_ex(ctx, resultBytes + length, (int *)&blockLength)) {
+                length += blockLength;
+                plaintext = [NSData dataWithBytes:resultBytes length:length];
+            }
+            
+        }
     }
-    
-    if (!EVP_DecryptUpdate(&ctx, resultBytes, (int *)&blockLength, self.bytes, (int)self.length)) {
-        free(resultBytes);
-        return nil;
-    }
-    length += blockLength;
-    
-    if (!EVP_DecryptFinal(&ctx, resultBytes + length, (int *)&blockLength)) {
-        free(resultBytes);
-        return nil;
-    }
-    length += blockLength;
-    
+    free(resultBytes);
+    EVP_CIPHER_CTX_free(ctx);
     EVP_cleanup();
     
-    return [NSData dataWithBytesNoCopy:resultBytes length:length];
+    return plaintext;
 }
 
 - (const EVP_CIPHER *)cipherWithMode:(KIAESMode)mode bits:(KIAESBits)bits {
