@@ -10,11 +10,7 @@ Pod::Spec.new do |s|
   s.homepage     = "https://github.com/smartwalle/KIEncoding"
   s.license      = "MIT"
   s.author       = { "SmartWalle" => "smartwalle@gmail.com" }
-#  s.platform     = :ios
-
-  s.ios.platform            = :ios, '6.0'
-  s.ios.deployment_target   = '6.0'
-
+  s.platform     = :ios
   s.source       = { :git => "https://github.com/smartwalle/KIEncoding.git", :tag => "#{s.version}", :submodules => true }
 #  s.source_files  = "KIAdditions/KIAdditions/*.{h,m}"
 #  s.exclude_files = "Classes/Exclude"
@@ -39,7 +35,4 @@ Pod::Spec.new do |s|
   s.subspec 'KIRSA' do |ss|
     ss.source_files  = "KIEncoding/KIOpenSSL/KIRSA/*.{h,m}"
   end
-
-  s.dependency "KIOpenSSL", '~> 1.0.6'
-
 end
