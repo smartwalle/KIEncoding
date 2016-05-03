@@ -12,7 +12,7 @@
 
 @implementation NSData (KIAES)
 
-- (NSData *)AESEncryptWithMode:(KIAESMode)mode bits:(KIAESBits)bits key:(NSString *)key iv:(NSString *)iv {
+- (NSData *)AESEncryptWithMode:(KIAESMode)mode bits:(KIAESBits)bits key:(NSData *)key iv:(NSData *)iv {
     OpenSSL_add_all_algorithms();
     
     const EVP_CIPHER *cipher = [self cipherWithMode:mode bits:bits];
@@ -31,7 +31,7 @@
     EVP_CIPHER_CTX *ctx = EVP_CIPHER_CTX_new();
     
     NSData *ciphertext = nil;
-    if (EVP_EncryptInit_ex(ctx, cipher, NULL, (unsigned char *)[key UTF8String], (unsigned char *)[iv UTF8String])) {
+    if (EVP_EncryptInit_ex(ctx, cipher, NULL, (unsigned char *)[key bytes], (unsigned char *)[iv bytes])) {
         if (EVP_EncryptUpdate(ctx, resultBytes, (int *)&blockLength, self.bytes, (int)self.length)) {
             length += blockLength;
             if (EVP_EncryptFinal(ctx, resultBytes + length, (int *)&blockLength)) {
@@ -41,14 +41,13 @@
         }
     }
     free(resultBytes);
+    EVP_CIPHER_CTX_cleanup(ctx);
     EVP_CIPHER_CTX_free(ctx);
-    EVP_cleanup();
     
     return ciphertext;
 }
 
-
-- (NSData *)AESDecryptWithMode:(KIAESMode)mode bits:(KIAESBits)bits key:(NSString *)key iv:(NSString *)iv {
+- (NSData *)AESDecryptWithMode:(KIAESMode)mode bits:(KIAESBits)bits key:(NSData *)key iv:(NSData *)iv {
     OpenSSL_add_all_algorithms();
     
     const EVP_CIPHER *cipher = [self cipherWithMode:mode bits:bits];
@@ -66,7 +65,7 @@
     EVP_CIPHER_CTX *ctx = EVP_CIPHER_CTX_new();
     
     NSData *plaintext = nil;
-    if (EVP_DecryptInit_ex(ctx, cipher, NULL, (unsigned char *)[key UTF8String], (unsigned char *)[iv UTF8String])) {
+    if (EVP_DecryptInit_ex(ctx, cipher, NULL, (unsigned char *)[key bytes], (unsigned char *)[iv bytes])) {
         if (EVP_DecryptUpdate(ctx, resultBytes, (int *)&blockLength, self.bytes, (int)self.length)) {
             length += blockLength;
             if (EVP_DecryptFinal_ex(ctx, resultBytes + length, (int *)&blockLength)) {
@@ -77,8 +76,8 @@
         }
     }
     free(resultBytes);
+    EVP_CIPHER_CTX_cleanup(ctx);
     EVP_CIPHER_CTX_free(ctx);
-    EVP_cleanup();
     
     return plaintext;
 }

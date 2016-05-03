@@ -10,12 +10,12 @@
 
 @implementation NSString (KIAES)
 
-- (NSData *)AESEncryptWithMode:(KIAESMode)mode bits:(KIAESBits)bits key:(NSString *)key iv:(NSString *)iv {
+- (NSData *)AESEncryptWithMode:(KIAESMode)mode bits:(KIAESBits)bits key:(NSData *)key iv:(NSData *)iv {
     NSData *data = [self dataUsingEncoding:NSUTF8StringEncoding];
     return [data AESEncryptWithMode:mode bits:bits key:key iv:iv];
 }
 
-- (NSData *)AESDecryptWithMode:(KIAESMode)mode bits:(KIAESBits)bits key:(NSString *)key iv:(NSString *)iv {
+- (NSData *)AESDecryptWithMode:(KIAESMode)mode bits:(KIAESBits)bits key:(NSData *)key iv:(NSData *)iv {
     NSData *data = [NSData dataWithHex:self];
     return [data AESDecryptWithMode:mode bits:bits key:key iv:iv];
 }
