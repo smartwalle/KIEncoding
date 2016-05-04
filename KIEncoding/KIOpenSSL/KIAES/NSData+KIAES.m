@@ -10,7 +10,6 @@
 #import <openssl/aes.h>
 #import <openssl/evp.h>
 #import <openssl/rand.h>
-#import "NSString+KIEncoding.h"
 
 NSString * const KIAESDefaultMagic = @"Salted__";
 
