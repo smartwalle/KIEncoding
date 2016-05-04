@@ -10,8 +10,9 @@
 #import <openssl/aes.h>
 #import <openssl/evp.h>
 #import <openssl/rand.h>
+#import "NSString+KIEncoding.h"
 
-static NSString * const kDefaultMagic = @"Salted__";
+NSString * const KIAESDefaultMagic = @"Salted__";
 
 @implementation NSData (KIAES)
 
@@ -47,7 +48,7 @@ static NSString * const kDefaultMagic = @"Salted__";
                            saltType:saltType
                          saltDigest:saltDigest
                           iterCount:iterCount
-                              magic:kDefaultMagic];
+                              magic:KIAESDefaultMagic];
 }
 
 - (NSData *)AESEncryptWithMode:(KIAESMode)mode
@@ -64,7 +65,12 @@ static NSString * const kDefaultMagic = @"Salted__";
         return nil;
     }
     
-    unsigned char key[EVP_MAX_KEY_LENGTH];
+    if (magic == nil) {
+        magic = KIAESDefaultMagic;
+    }
+    
+    int keySize = bits / 8;
+    unsigned char key[keySize];
     unsigned char iv[EVP_MAX_IV_LENGTH];
     unsigned char salt[PKCS5_SALT_LEN];
     
@@ -80,10 +86,10 @@ static NSString * const kDefaultMagic = @"Salted__";
         if (iterCount <= 0) {
             iterCount = PKCS5_DEFAULT_ITER;
         }
-        if (PKCS5_PBKDF2_HMAC([password bytes], (int)[password length], salt, sizeof(salt), iterCount, saltDigest, bits/8, key) == 0) {
+        if (PKCS5_PBKDF2_HMAC([password bytes], (int)[password length], salt, sizeof(salt), iterCount, saltDigest, keySize, key) == 0) {
             return nil;
         }
-        if (PKCS5_PBKDF2_HMAC((char *)key, sizeof(key), salt, sizeof(salt), iterCount, saltDigest, EVP_MAX_IV_LENGTH, iv) == 0) {
+        if (PKCS5_PBKDF2_HMAC((char *)key, keySize, salt, sizeof(salt), iterCount, saltDigest, EVP_MAX_IV_LENGTH, iv) == 0) {
             return nil;
         }
     } else {
@@ -95,11 +101,30 @@ static NSString * const kDefaultMagic = @"Salted__";
         }
     }
     
-    if (magic == nil) {
-        magic = kDefaultMagic;
-    }
+#if DEBUG
+    NSLog(@"AES Encrypt:");
+    NSLog(@"AES Key: %@", [NSData dataWithBytes:key length:keySize]);
+    NSLog(@"AES IV: %@", [NSData dataWithBytes:iv length:sizeof(iv)]);
+    NSLog(@"AES SALT: %@", [NSData dataWithBytes:salt length:sizeof(salt)]);
+#endif
     
     return [self AESEncryptWithCipher:cipher key:key iv:iv salt:salt magic:magic];
+}
+
+- (NSData *)AESEncryptWithMode:(KIAESMode)mode
+                          bits:(KIAESBits)bits
+                           key:(NSData *)key
+                            iv:(NSData *)iv
+                          salt:(NSData *)salt
+                         magic:(NSString *)magic {
+    OpenSSL_add_all_algorithms();
+    
+    const EVP_CIPHER *cipher = [self cipherWithMode:mode bits:bits];
+    if (cipher == nil) {
+        return nil;
+    }
+    
+    return [self AESEncryptWithCipher:cipher key:(unsigned char *)[key bytes] iv:(unsigned char *)[iv bytes] salt:(unsigned char *)[salt bytes] magic:magic];
 }
 
 - (NSData *)AESEncryptWithCipher:(const EVP_CIPHER *)cipher
@@ -150,7 +175,7 @@ static NSString * const kDefaultMagic = @"Salted__";
         return nil;
     }
     
-    return [self AESDecryptWithCipher:cipher key:(unsigned char *)[key bytes] iv:(unsigned char *)[iv bytes] salt:NULL magic:nil];
+    return [self AESDecryptWithCipher:cipher key:(unsigned char *)[key bytes] iv:(unsigned char *)[iv bytes] salted:NO magic:nil];
 }
 
 - (NSData *)AESDecryptWithMode:(KIAESMode)mode bits:(KIAESBits)bits password:(NSData *)password {
@@ -173,7 +198,7 @@ static NSString * const kDefaultMagic = @"Salted__";
                            saltType:saltType
                          saltDigest:saltDigest
                           iterCount:iterCount
-                              magic:kDefaultMagic];
+                              magic:KIAESDefaultMagic];
 }
 
 
@@ -191,13 +216,16 @@ static NSString * const kDefaultMagic = @"Salted__";
         return nil;
     }
     
-    int length = [self length];
+    if (magic == nil) {
+        magic = KIAESDefaultMagic;
+    }
     
-    unsigned char key[EVP_MAX_KEY_LENGTH];
+    int keySize = bits / 8;
+    unsigned char key[keySize];
     unsigned char iv[EVP_MAX_IV_LENGTH];
     unsigned char salt[PKCS5_SALT_LEN];
     
-    if (length < magic.length - 1 + PKCS5_SALT_LEN) {
+    if (self.length < magic.length - 1 + PKCS5_SALT_LEN) {
         return nil;
     }
     
@@ -214,10 +242,10 @@ static NSString * const kDefaultMagic = @"Salted__";
         if (iterCount <= 0) {
             iterCount = PKCS5_DEFAULT_ITER;
         }
-        if (PKCS5_PBKDF2_HMAC([password bytes], (int)[password length], salt, sizeof(salt), iterCount, saltDigest, bits/8, key) == 0) {
+        if (PKCS5_PBKDF2_HMAC([password bytes], (int)[password length], salt, sizeof(salt), iterCount, saltDigest, keySize, key) == 0) {
             return nil;
         }
-        if (PKCS5_PBKDF2_HMAC((char *)key, sizeof(key), salt, sizeof(salt), iterCount, saltDigest, EVP_MAX_IV_LENGTH, iv) == 0) {
+        if (PKCS5_PBKDF2_HMAC((char *)key, keySize, salt, sizeof(salt), iterCount, saltDigest, EVP_MAX_IV_LENGTH, iv) == 0) {
             return nil;
         }
     } else {
@@ -229,17 +257,35 @@ static NSString * const kDefaultMagic = @"Salted__";
         }
     }
     
-    if (magic == nil) {
-        magic = kDefaultMagic;
+#if DEBUG
+    NSLog(@"AES Decrypt:");
+    NSLog(@"AES Key: %@", [NSData dataWithBytes:key length:keySize]);
+    NSLog(@"AES IV: %@", [NSData dataWithBytes:iv length:sizeof(iv)]);
+    NSLog(@"AES SALT: %@", [NSData dataWithBytes:salt length:sizeof(salt)]);
+#endif
+    
+    return [self AESDecryptWithCipher:cipher key:key iv:iv salted:YES magic:magic];
+}
+
+- (NSData *)AESDecryptWithMode:(KIAESMode)mode
+                          bits:(KIAESBits)bits
+                           key:(NSData *)key
+                            iv:(NSData *)iv
+                         magic:(NSString *)magic {
+    OpenSSL_add_all_algorithms();
+    
+    const EVP_CIPHER *cipher = [self cipherWithMode:mode bits:bits];
+    if (cipher == nil) {
+        return nil;
     }
     
-    return [self AESDecryptWithCipher:cipher key:key iv:iv salt:salt magic:magic];
+    return [self AESDecryptWithCipher:cipher key:(unsigned char *)[key bytes] iv:(unsigned char *)[iv bytes] salted:(magic!=nil) magic:magic];
 }
 
 - (NSData *)AESDecryptWithCipher:(const EVP_CIPHER *)cipher
                              key:(unsigned char *)key
                               iv:(unsigned char *)iv
-                            salt:(unsigned char *)salt
+                          salted:(BOOL)salted
                            magic:(NSString *)magic {
     unsigned char *resultBytes = (unsigned char *) malloc(self.length);
     if (resultBytes == NULL) {
@@ -251,8 +297,11 @@ static NSString * const kDefaultMagic = @"Salted__";
     EVP_CIPHER_CTX *ctx = EVP_CIPHER_CTX_new();
     
     int offset = 0;
-    if (salt != NULL && magic != nil) {
-        offset = PKCS5_SALT_LEN + magic.length;
+    if (salted) {
+        offset += PKCS5_SALT_LEN;
+        if (magic != nil) {
+            offset += (int)magic.length;
+        }
     }
     
     NSData *plaintext = nil;

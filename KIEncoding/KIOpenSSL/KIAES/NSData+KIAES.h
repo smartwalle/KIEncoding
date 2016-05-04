@@ -34,6 +34,8 @@ typedef NS_ENUM(int, KIAESSaltType) {
     KIAESSaltType_PBKDF2     = 2,
 };
 
+extern NSString *const KIAESDefaultMagic;
+
 @interface NSData (KIAES)
 
 - (NSData *)AESEncryptWithMode:(KIAESMode)mode bits:(KIAESBits)bits key:(NSData *)key iv:(NSData *)iv;
@@ -59,6 +61,13 @@ typedef NS_ENUM(int, KIAESSaltType) {
                      iterCount:(int)iterCount
                          magic:(NSString *)magic;
 
+- (NSData *)AESEncryptWithMode:(KIAESMode)mode
+                          bits:(KIAESBits)bits
+                           key:(NSData *)key
+                            iv:(NSData *)iv
+                          salt:(NSData *)salt
+                         magic:(NSString *)magic;
+
 
 
 - (NSData *)AESDecryptWithMode:(KIAESMode)mode bits:(KIAESBits)bits password:(NSData *)password;
@@ -78,4 +87,11 @@ typedef NS_ENUM(int, KIAESSaltType) {
                     saltDigest:(const EVP_MD *)saltDigest
                      iterCount:(int)iterCount
                          magic:(NSString *)magic;
+
+- (NSData *)AESDecryptWithMode:(KIAESMode)mode
+                          bits:(KIAESBits)bits
+                           key:(NSData *)key
+                            iv:(NSData *)iv
+                         magic:(NSString *)magic;
+
 @end
