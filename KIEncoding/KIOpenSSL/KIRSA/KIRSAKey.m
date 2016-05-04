@@ -187,6 +187,10 @@
     
     unsigned long errCode = ERR_get_error();
     
+    if (errCode == 0) {
+        return nil;
+    }
+    
     char *errMsg = malloc(130);
     ERR_error_string(errCode, errMsg);
     NSString *errDes = [NSString stringWithFormat:@"KIRSA Error: Code=%lu, Des:%s", errCode, errMsg];

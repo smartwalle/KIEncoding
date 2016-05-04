@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <openssl/evp.h>
 
 typedef NS_ENUM(int, KIAESMode) {
     KIAESMode_ECB = 0x01,
@@ -28,9 +29,53 @@ typedef NS_ENUM(int, KIAESBits) {
     KIAESBits_256 = 256,     // 密码的长度为 32 个字节
 };
 
+typedef NS_ENUM(int, KIAESSaltType) {
+    KIAESSaltType_BytesToKey = 1,
+    KIAESSaltType_PBKDF2     = 2,
+};
+
 @interface NSData (KIAES)
 
 - (NSData *)AESEncryptWithMode:(KIAESMode)mode bits:(KIAESBits)bits key:(NSData *)key iv:(NSData *)iv;
 - (NSData *)AESDecryptWithMode:(KIAESMode)mode bits:(KIAESBits)bits key:(NSData *)key iv:(NSData *)iv;
 
+
+
+- (NSData *)AESEncryptWithMode:(KIAESMode)mode bits:(KIAESBits)bits password:(NSData *)password;
+- (NSData *)AESEncryptWithMode:(KIAESMode)mode bits:(KIAESBits)bits password:(NSData *)password saltType:(KIAESSaltType)saltType;
+
+- (NSData *)AESEncryptWithMode:(KIAESMode)mode
+                          bits:(KIAESBits)bits
+                      password:(NSData *)password
+                      saltType:(KIAESSaltType)saltType
+                    saltDigest:(const EVP_MD *)saltDigest
+                     iterCount:(int)iterCount;
+
+- (NSData *)AESEncryptWithMode:(KIAESMode)mode
+                          bits:(KIAESBits)bits
+                      password:(NSData *)password
+                      saltType:(KIAESSaltType)saltType
+                    saltDigest:(const EVP_MD *)saltDigest
+                     iterCount:(int)iterCount
+                         magic:(NSString *)magic;
+
+
+
+- (NSData *)AESDecryptWithMode:(KIAESMode)mode bits:(KIAESBits)bits password:(NSData *)password;
+- (NSData *)AESDecryptWithMode:(KIAESMode)mode bits:(KIAESBits)bits password:(NSData *)password saltType:(KIAESSaltType)saltType;
+
+- (NSData *)AESDecryptWithMode:(KIAESMode)mode
+                          bits:(KIAESBits)bits
+                      password:(NSData *)password
+                      saltType:(KIAESSaltType)saltType
+                    saltDigest:(const EVP_MD *)saltDigest
+                     iterCount:(int)iterCount;
+
+- (NSData *)AESDecryptWithMode:(KIAESMode)mode
+                          bits:(KIAESBits)bits
+                      password:(NSData *)password
+                      saltType:(KIAESSaltType)saltType
+                    saltDigest:(const EVP_MD *)saltDigest
+                     iterCount:(int)iterCount
+                         magic:(NSString *)magic;
 @end

@@ -7,8 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		18145EA51CD9793300A2E74B /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 18145EA41CD9793300A2E74B /* AppDelegate.m */; };
 		181E4E501CBF5D9700699077 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 181E4E4F1CBF5D9700699077 /* main.m */; };
-		181E4E531CBF5D9700699077 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 181E4E521CBF5D9700699077 /* AppDelegate.m */; };
 		181E4E561CBF5D9700699077 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 181E4E551CBF5D9700699077 /* ViewController.m */; };
 		181E4E591CBF5D9700699077 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 181E4E571CBF5D9700699077 /* Main.storyboard */; };
 		181E4E5B1CBF5D9700699077 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 181E4E5A1CBF5D9700699077 /* Assets.xcassets */; };
@@ -40,10 +40,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		18145EA41CD9793300A2E74B /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		181E4E4B1CBF5D9600699077 /* KIEncoding.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = KIEncoding.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		181E4E4F1CBF5D9700699077 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		181E4E511CBF5D9700699077 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
-		181E4E521CBF5D9700699077 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		181E4E541CBF5D9700699077 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		181E4E551CBF5D9700699077 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		181E4E581CBF5D9700699077 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -134,7 +134,7 @@
 				181E4E8C1CBF5E4800699077 /* KIHMAC */,
 				181E4E941CBF5EDA00699077 /* KIOpenSSL */,
 				181E4E511CBF5D9700699077 /* AppDelegate.h */,
-				181E4E521CBF5D9700699077 /* AppDelegate.m */,
+				18145EA41CD9793300A2E74B /* AppDelegate.m */,
 				181E4E541CBF5D9700699077 /* ViewController.h */,
 				181E4E551CBF5D9700699077 /* ViewController.m */,
 				181E4E571CBF5D9700699077 /* Main.storyboard */,
@@ -413,8 +413,8 @@
 				D5D617941CBFC605000EC32F /* NSString+KIAES.m in Sources */,
 				D5D617931CBFC605000EC32F /* NSData+KIAES.m in Sources */,
 				181E4E561CBF5D9700699077 /* ViewController.m in Sources */,
-				181E4E531CBF5D9700699077 /* AppDelegate.m in Sources */,
 				181E4E9E1CBF64CF00699077 /* NSString+KIEncoding.m in Sources */,
+				18145EA51CD9793300A2E74B /* AppDelegate.m in Sources */,
 				181E4E501CBF5D9700699077 /* main.m in Sources */,
 				187F6A251CC0A58C00450E22 /* KIRSAPrivateKey.m in Sources */,
 				187F6A221CC0A58200450E22 /* KIRSAPublicKey.m in Sources */,
