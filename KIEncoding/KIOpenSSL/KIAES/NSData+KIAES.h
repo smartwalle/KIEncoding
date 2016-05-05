@@ -65,6 +65,12 @@ extern NSString *const KIAESDefaultMagic;
                           bits:(KIAESBits)bits
                            key:(NSData *)key
                             iv:(NSData *)iv
+                          salt:(NSData *)salt;
+
+- (NSData *)AESEncryptWithMode:(KIAESMode)mode
+                          bits:(KIAESBits)bits
+                           key:(NSData *)key
+                            iv:(NSData *)iv
                           salt:(NSData *)salt
                          magic:(NSString *)magic;
 
@@ -92,6 +98,15 @@ extern NSString *const KIAESDefaultMagic;
                           bits:(KIAESBits)bits
                            key:(NSData *)key
                             iv:(NSData *)iv
+                        salted:(BOOL)salted;
+
+- (NSData *)AESDecryptWithMode:(KIAESMode)mode
+                          bits:(KIAESBits)bits
+                           key:(NSData *)key
+                            iv:(NSData *)iv
                          magic:(NSString *)magic;
+
+- (NSData *)salt;
+- (NSData *)saltWithMagic:(NSString *)magic;
 
 @end
