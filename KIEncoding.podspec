@@ -13,7 +13,7 @@ Pod::Spec.new do |s|
   s.ios.deployment_target   = '6.0'
 
   s.source       = { :git => "https://github.com/smartwalle/KIEncoding.git", :tag => "#{s.version}"}
-  s.source_files  = "KIEncoding/KIEncoding/*.{h,m}", "KIEncoding/KIDigest/*.{h,m}", "KIEncoding/KIHMAC/*.{h,m}", "KIEncoding/KIOpenSSL/KIAES/*.{h,m}", "KIEncoding/KIOpenSSL/KIRSA/*.{h,m}"
+  s.source_files  = "KIEncoding/KIEncoding/*.{h,m}", "KIEncoding/KIDigest/*.{h,m}", "KIEncoding/KIHMAC/*.{h,m}", "KIEncoding/KIOpenSSL/KIAES/*.{h,m}", "KIEncoding/KIOpenSSL/KIRSA/*.{h,m}", "KIEncoding/KIOpenSSL/KIPKCS5/*.{h,m}"
   s.requires_arc = true
 
   s.dependency "KIOpenSSL"
