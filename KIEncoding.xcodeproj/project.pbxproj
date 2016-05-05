@@ -20,6 +20,7 @@
 		181E4E911CBF5E4800699077 /* NSData+KIHMAC.m in Sources */ = {isa = PBXBuildFile; fileRef = 181E4E8E1CBF5E4800699077 /* NSData+KIHMAC.m */; };
 		181E4E921CBF5E4800699077 /* NSString+KIHMAC.m in Sources */ = {isa = PBXBuildFile; fileRef = 181E4E901CBF5E4800699077 /* NSString+KIHMAC.m */; };
 		181E4E9E1CBF64CF00699077 /* NSString+KIEncoding.m in Sources */ = {isa = PBXBuildFile; fileRef = 181E4E9D1CBF64CF00699077 /* NSString+KIEncoding.m */; };
+		18611B371CDAECED006BB977 /* NSData+KIPKCS5.m in Sources */ = {isa = PBXBuildFile; fileRef = 18611B361CDAECED006BB977 /* NSData+KIPKCS5.m */; };
 		187F6A221CC0A58200450E22 /* KIRSAPublicKey.m in Sources */ = {isa = PBXBuildFile; fileRef = 187F6A211CC0A58200450E22 /* KIRSAPublicKey.m */; };
 		187F6A251CC0A58C00450E22 /* KIRSAPrivateKey.m in Sources */ = {isa = PBXBuildFile; fileRef = 187F6A241CC0A58C00450E22 /* KIRSAPrivateKey.m */; };
 		187F6A281CC0A59200450E22 /* KIRSA.m in Sources */ = {isa = PBXBuildFile; fileRef = 187F6A271CC0A59200450E22 /* KIRSA.m */; };
@@ -67,6 +68,8 @@
 		181E4E901CBF5E4800699077 /* NSString+KIHMAC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+KIHMAC.m"; sourceTree = "<group>"; };
 		181E4E9C1CBF64CF00699077 /* NSString+KIEncoding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+KIEncoding.h"; sourceTree = "<group>"; };
 		181E4E9D1CBF64CF00699077 /* NSString+KIEncoding.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+KIEncoding.m"; sourceTree = "<group>"; };
+		18611B351CDAECED006BB977 /* NSData+KIPKCS5.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+KIPKCS5.h"; sourceTree = "<group>"; };
+		18611B361CDAECED006BB977 /* NSData+KIPKCS5.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+KIPKCS5.m"; sourceTree = "<group>"; };
 		187F6A201CC0A58200450E22 /* KIRSAPublicKey.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KIRSAPublicKey.h; sourceTree = "<group>"; };
 		187F6A211CC0A58200450E22 /* KIRSAPublicKey.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KIRSAPublicKey.m; sourceTree = "<group>"; };
 		187F6A231CC0A58C00450E22 /* KIRSAPrivateKey.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KIRSAPrivateKey.h; sourceTree = "<group>"; };
@@ -208,10 +211,20 @@
 		181E4E941CBF5EDA00699077 /* KIOpenSSL */ = {
 			isa = PBXGroup;
 			children = (
+				18611B341CDAECC7006BB977 /* KIPKCS5 */,
 				D5D6178D1CBFC605000EC32F /* KIAES */,
 				D5D617921CBFC605000EC32F /* KIRSA */,
 			);
 			path = KIOpenSSL;
+			sourceTree = "<group>";
+		};
+		18611B341CDAECC7006BB977 /* KIPKCS5 */ = {
+			isa = PBXGroup;
+			children = (
+				18611B351CDAECED006BB977 /* NSData+KIPKCS5.h */,
+				18611B361CDAECED006BB977 /* NSData+KIPKCS5.m */,
+			);
+			path = KIPKCS5;
 			sourceTree = "<group>";
 		};
 		326D596EF7BB0D8CE6F370BB /* Pods */ = {
@@ -421,6 +434,7 @@
 				187F6A2B1CC0A6AE00450E22 /* KIRSAKey.m in Sources */,
 				181E4E8B1CBF5E1500699077 /* NSString+KIDigest.m in Sources */,
 				181E4E921CBF5E4800699077 /* NSString+KIHMAC.m in Sources */,
+				18611B371CDAECED006BB977 /* NSData+KIPKCS5.m in Sources */,
 				181E4E841CBF5DE400699077 /* NSData+KIEncoding.m in Sources */,
 				181E4E911CBF5E4800699077 /* NSData+KIHMAC.m in Sources */,
 				187F6A281CC0A59200450E22 /* KIRSA.m in Sources */,
