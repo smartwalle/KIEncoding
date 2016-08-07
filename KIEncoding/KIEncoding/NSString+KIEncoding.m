@@ -33,9 +33,8 @@
     NSString *result = (NSString *)CFBridgingRelease(CFURLCreateStringByAddingPercentEscapes(kCFAllocatorDefault,
                                                                                              (CFStringRef)self,
                                                                                              NULL,
-                                                                                             CFSTR(":/?#[]@!$&'()*+,;="),
+                                                                                             CFSTR(""),
                                                                                              kCFStringEncodingUTF8));
-    
     return result;
 #else
     return [self stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLHostAllowedCharacterSet]];
@@ -43,10 +42,10 @@
 }
 
 - (NSString *)URLDecodedString {
-#if __MAC_OS_X_VERSION_MIN_REQUIRED < __MAC_10_11 || __IPHONE_OS_VERSION_MIN_REQUIRED < __IPHONE_9_0
+#if __MAC_OS_X_VERSION_MIN_REQUIRED < __MAC_10_11 || __IPHONE_OS_VERSION_MIN_REQUIRED < __IPHONE_7_0
     NSString *result = (NSString *)CFBridgingRelease(CFURLCreateStringByReplacingPercentEscapesUsingEncoding(kCFAllocatorDefault,
                                                                                                              (CFStringRef)self,
-                                                                                                             CFSTR(":/?#[]@!$&'()*+,;="),
+                                                                                                             CFSTR(""),
                                                                                                              kCFStringEncodingUTF8));
     return result;
 #else
