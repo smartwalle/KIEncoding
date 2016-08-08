@@ -11,7 +11,7 @@
 
 @interface NSData (KIPKCS5)
 
-- (NSData *)PBKDF2WithSalt:(NSData *)salt kenLen:(int)kenLen;
-- (NSData *)PBKDF2WithSalt:(NSData *)salt iter:(int)iter digest:(const EVP_MD *)digest kenLen:(int)kenLen;
+- (NSData *)PBKDF2WithSalt:(NSData *)salt keyLen:(int)keyLen;
+- (NSData *)PBKDF2WithSalt:(NSData *)salt iter:(int)iter digest:(const EVP_MD *)digest keyLen:(int)keyLen;
 
 @end
