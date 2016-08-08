@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = "KIEncoding"
-  s.version      = "0.0.2"
+  s.version      = "0.0.3"
   s.summary      = "KIEncoding"
 
   s.description  = <<-DESC
